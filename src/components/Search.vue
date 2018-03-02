@@ -8,12 +8,6 @@
           </span>
       </p>
     </div>
-    <!--<a class="panel-block is-active">-->
-    <!--<span class="panel-icon">-->
-    <!--<i class="fas fa-book"></i>-->
-    <!--</span>-->
-    <!--bulma-->
-    <!--</a>-->
   </div>
 </template>
 

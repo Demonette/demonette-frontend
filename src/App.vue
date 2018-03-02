@@ -7,20 +7,25 @@
             <a class="navbar-item" href="http://redac.univ-tlse2.fr/lexiques/demonette.html">
               Démonette
             </a>
-          </div>
-            <div class="navbar-menu">
-              <div class="navbar-end">
-                <a class="navbar-item" href="https://bulma.io/">
-                  Rechercher
-                </a>
-                <a class="navbar-item">
-                  À propos
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
-              </div>
+            <div class="navbar-burger">
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
+          </div>
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <router-link :to="{ name: 'Search'}" class="navbar-item">
+               Rechercher
+              </router-link>
+              <router-link :to="{ name: 'About'}" class="navbar-item">
+                À propos
+              </router-link>
+              <router-link :to="{ name: 'Contacts'}" class="navbar-item">
+                Contacts
+              </router-link>
+            </div>
+          </div>
         </header>
       </div>
     </section>
