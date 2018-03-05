@@ -17,28 +17,40 @@
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <div class="box" v-for="el in entry" :key="el._id">
-          <div class="media-content">
+        <b-collapse class="box" v-for="el in entry" :key="el._id" :open="false">
+          <div slot="trigger" slot-scope="props">
+            <p>
+              <strong class="is-size-3">
+                {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
+              </strong>
+              <small class="is-size-4">{{el._source.type_1}}/{{el._source.type_2}} </small>
+              <br/>
+              <small><i>ressource : {{el._source.ori_couple}}</i></small>
+            </p>
+            <br/>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small" :icon="props.open ? 'menu-down' : 'menu-up'">
+                    <i class="is-size-4" v-show="!props.open">...</i>
+                  </span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="card-content">
             <div class="content">
-              <p>
-                <strong class="is-size-3">
-                  {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
-                </strong>
-                <small class="is-size-4">{{el._source.type_1}}/{{el._source.type_2}} </small>
-                <br/>
-                {{ el }}
-              </p>
               <table>
-                  <tbody>
-                    <tr v-for="(value, key) in el._source" :key="value">
-                      <td>{{ key }}</td>
-                      <td>{{ value }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <tbody>
+                <tr v-for="(value, key) in el._source" :key="value" v-if="value">
+                  <td>{{ key }}</td>
+                  <td>{{ value }}</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
+        </b-collapse>
       </div>
     </div>
   </div>
@@ -55,6 +67,7 @@
     return {
       entry: '',
       queryField: '',
+      formatRequestKey: {},
     };
   },
   watch: {
