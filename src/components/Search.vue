@@ -38,17 +38,17 @@
               </div>
             </nav>
           </div>
-          <div class="card-content">
-            <div class="content">
-              <table>
-                <tbody>
-                <tr v-for="(value, key) in el._source" :key="value" v-if="value">
-                  <td>{{ key }}</td>
-                  <td>{{ value }}</td>
+          <div class="card-content" v-for="(features, entity) in returnformatRequest(el._source)">
+            <h2 class="is-size-5"><strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong></h2>
+            <br/>
+            <table class="table is-bordered is-striped is-hoverable">
+              <tbody>
+                <tr v-for="f in features">
+                  <th>{{ f.name }}</th>
+                  <td>{{ f.value }}</td>
                 </tr>
-                </tbody>
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </b-collapse>
       </div>
@@ -57,9 +57,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import _ from 'lodash';
-  import { url } from '../../config/url-config';
+  import formatRequest from '../computed/formatRequest';
+  import query from '../computed/query';
 
   export default {
   name: 'Search',
@@ -67,7 +67,6 @@
     return {
       entry: '',
       queryField: '',
-      formatRequestKey: {},
     };
   },
   watch: {
@@ -77,21 +76,11 @@
     },
   },
   methods: {
-    query() {
-      if (!this.queryField) {
-        this.entry = '';
-      } else {
-        axios.get(`${url[process.env.NODE_ENV]}/search?token=${this.queryField}`)
-          .then((response) => {
-            this.entry = response.data;
-          })
-          .catch(() => {
-            this.entry = 'pas de résultat pour la recherche courante ...';
-          });
-      }
-    },
+    returnformatRequest(sourceEntry) { return formatRequest(sourceEntry); },
     // eslint-disable-next-line func-names
-    debounceQuery: _.debounce(function () { this.query(); }, 300),
+    debounceQuery: _.debounce(function () {
+      query(this.queryField).then((data) => { this.entry = data; });
+    }, 300),
   },
 };
 </script>
