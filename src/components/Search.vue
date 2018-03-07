@@ -38,10 +38,12 @@
               </div>
             </nav>
           </div>
+          <div class="columns">
           <div class="card-content" v-for="(features, entity) in returnformatRequest(el._source)">
-            <h2 class="is-size-5"><strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong></h2>
-            <br/>
-            <table class="table is-bordered is-striped is-hoverable">
+            <table class="table is-bordered is-striped is-hoverable column">
+              <h1 class="title is-size-4">
+                <strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong>
+              </h1>
               <tbody>
                 <tr v-for="f in features">
                   <th>{{ f.name }}</th>
@@ -49,6 +51,7 @@
                 </tr>
               </tbody>
             </table>
+          </div>
           </div>
         </b-collapse>
       </div>
