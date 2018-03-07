@@ -61,8 +61,8 @@
 
 <script>
   import _ from 'lodash';
-  import formatRequest from '../computed/formatRequest';
-  import query from '../computed/query';
+  import formatRequest from '../methods/formatRequest';
+  import query from '../methods/query';
 
   export default {
   name: 'Search',
