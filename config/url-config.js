@@ -1,4 +1,4 @@
 export const url = {
-  production : 'https://localhost:3000',
+  production : 'https://arges.atilf.fr/demonette',
   development: 'http://localhost:3000'
 };
