@@ -17,43 +17,7 @@
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <b-collapse class="box" v-for="el in entry" :key="el._id" :open="false">
-          <div slot="trigger" slot-scope="props">
-            <p>
-              <strong class="is-size-3">
-                {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
-              </strong>
-              <small class="is-size-4">{{el._source.type_1}}/{{el._source.type_2}} </small>
-              <br/>
-              <small><i>ressource : {{el._source.ori_couple}}</i></small>
-            </p>
-            <br/>
-            <nav class="level is-mobile">
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small" :icon="props.open ? 'menu-down' : 'menu-up'">
-                    <i class="is-size-4" v-show="!props.open">...</i>
-                  </span>
-                </a>
-              </div>
-            </nav>
-          </div>
-          <div class="columns">
-          <div class="card-content" v-for="(features, entity) in returnformatRequest(el._source)">
-            <table class="table is-bordered is-striped is-hoverable column">
-              <h1 class="title is-size-4">
-                <strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong>
-              </h1>
-              <tbody>
-                <tr v-for="f in features">
-                  <th>{{ f.name }}</th>
-                  <td>{{ f.value }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          </div>
-        </b-collapse>
+        <collapse :parentEntry="this.entry"/>
       </div>
     </div>
   </div>
@@ -61,10 +25,11 @@
 
 <script>
   import _ from 'lodash';
-  import formatRequest from '../methods/formatRequest';
   import query from '../methods/query';
+  import Collapse from './Collapse';
 
   export default {
+  components: { Collapse },
   name: 'Search',
   data() {
     return {
@@ -79,8 +44,6 @@
     },
   },
   methods: {
-    returnformatRequest(sourceEntry) { return formatRequest(sourceEntry); },
-    // eslint-disable-next-line func-names
     debounceQuery: _.debounce(function () {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),

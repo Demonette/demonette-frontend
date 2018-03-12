@@ -24,7 +24,6 @@ export default function formatRequest(entryResult) {
     for (const index in res[entity]) {
       const feature = res[entity][index].name;
       if (entryResult[feature] !== '') {
-        console.log(entryResult[feature]);
         res[entity][index].value = entryResult[feature];
       } else {
         delete res[entity].splice(index, index);
