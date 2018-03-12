@@ -1,13 +1,12 @@
 <template>
   <div class="search">
-    <div class="panel-block">
-      <p class="control has-icons-left">
-        <input class="input" type="text" placeholder="search" v-model="queryField">
-        <span class="icon is-left">
-            <i class="fas fa-search"></i>
-          </span>
-      </p>
-    </div>
+    <section class="panel-block">
+        <b-taginput
+          v-model="queryField"
+          icon="tag"
+          placeholder="ajouter un tag de recherche ...">
+        </b-taginput>
+    </section>
     <br/>
     <div class="container is-fluid">
       <div v-if="this.entry.length === 0">
@@ -29,7 +28,9 @@
   import Collapse from './Collapse';
 
   export default {
-  components: { Collapse },
+  components: {
+    Collapse,
+  },
   name: 'Search',
   data() {
     return {
@@ -45,7 +46,7 @@
   },
   methods: {
     debounceQuery: _.debounce(function () {
-      query(this.queryField).then((data) => { this.entry = data; });
+      query(this.queryField.join(' ')).then((data) => { this.entry = data; });
     }, 300),
   },
 };
