@@ -23,11 +23,11 @@
 </template>
 
 <script>
-  import _ from 'lodash';
-  import query from '../methods/query';
-  import Collapse from './Collapse';
+import _ from 'lodash';
+import query from '../methods/query';
+import Collapse from './Collapse';
 
-  export default {
+export default {
   components: {
     Collapse,
   },
