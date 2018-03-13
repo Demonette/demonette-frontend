@@ -4,6 +4,10 @@
         <b-taginput
           v-model="queryField"
           icon="tag"
+          @typing="getFilteredTags"
+          autocomplete
+          allow-new
+          :data="filteredTags"
           placeholder="ajouter un tag de recherche ...">
         </b-taginput>
     </section>
@@ -36,6 +40,7 @@ export default {
     return {
       entry: '',
       queryField: '',
+      filteredTags: [],
     };
   },
   watch: {
@@ -48,6 +53,12 @@ export default {
     debounceQuery: _.debounce(function () {
       query(this.queryField.join(' ')).then((data) => { this.entry = data; });
     }, 300),
+    getFilteredTags(text) {
+      this.filteredTags = ['test', 'test1'].filter(
+        option => option.toString()
+          .toLowerCase()
+          .indexOf(text.toLowerCase()) >= 0);
+    },
   },
 };
 </script>
