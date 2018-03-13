@@ -29,6 +29,7 @@
 <script>
 import _ from 'lodash';
 import query from '../methods/query';
+import autocomplete from '../methods/autocomplete';
 import Collapse from './Collapse';
 
 export default {
@@ -54,6 +55,7 @@ export default {
       query(this.queryField.join(' ')).then((data) => { this.entry = data; });
     }, 300),
     getFilteredTags(text) {
+      autocomplete(text).then(res => console.log(res));
       this.filteredTags = ['test', 'test1'].filter(
         option => option.toString()
           .toLowerCase()
