@@ -24,7 +24,11 @@ export default function formatRequest(entryResult) {
     for (const index in res[entity]) {
       const feature = res[entity][index].name;
       if (entryResult[feature] !== '') {
+        const origin = `ori_${feature}`;
         res[entity][index].value = entryResult[feature];
+        if (entryResult[origin]) {
+          res[entity][index].origin = entryResult[origin];
+        }
       } else {
         delete res[entity].splice(index, index);
       }

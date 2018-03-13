@@ -8,7 +8,12 @@
         <tbody>
         <tr v-for="f in features">
           <th>{{ f.name }}</th>
-          <td>{{ f.value }}</td>
+          <td>
+            <b-tooltip :label="f.origin" position="is-right" animated
+                       :active="f.origin !== undefined">
+            {{ f.value }}
+            </b-tooltip>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -17,9 +22,9 @@
 </template>
 
 <script>
-  import formatRequest from '../methods/formatRequest';
+import formatRequest from '../methods/formatRequest';
 
-  export default {
+export default {
   name: 'table-entry',
   props: ['parentEl'],
   data() {
