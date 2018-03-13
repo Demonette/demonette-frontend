@@ -7,11 +7,11 @@
         </h1>
         <tbody>
         <tr v-for="f in features">
-          <th>{{ f.name }}</th>
+          <th>{{ normLabel[f.name] }}</th>
           <td>
             <b-tooltip :label="f.origin" position="is-right" animated
                        :active="f.origin !== undefined">
-            {{ f.value }}
+              {{ f.value }}
             </b-tooltip>
           </td>
         </tr>
@@ -30,6 +30,20 @@ export default {
   data() {
     return {
       el: this.parentEl,
+      normLabel: {
+        type_1: 'type',
+        cat_1: 'catégorie',
+        constr_1: 'construction',
+        type_constr_1: 'type de construction',
+        type_2: 'type',
+        cat_2: 'catégorie',
+        constr_2: 'construction',
+        type_constr_2: 'type de construction',
+        complexite: 'complexité',
+        orientation: 'orientation',
+        def_conc: 'définition concrète',
+        def_abs: 'définition abstraite',
+      },
     };
   },
   methods: {
