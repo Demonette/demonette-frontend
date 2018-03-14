@@ -5,8 +5,6 @@
           v-model="queryField"
           icon="tag"
           @typing="getFilteredTags"
-          autocomplete
-          allow-new
           :data="filteredTags"
           placeholder="ajouter un tag de recherche ...">
         </b-taginput>
@@ -40,8 +38,9 @@ export default {
   data() {
     return {
       entry: '',
-      queryField: '',
+      queryField: [],
       filteredTags: [],
+      current_ac: '',
     };
   },
   watch: {
@@ -54,12 +53,8 @@ export default {
     debounceQuery: _.debounce(function () {
       query(this.queryField.join(' ')).then((data) => { this.entry = data; });
     }, 300),
-    getFilteredTags(text) {
-      autocomplete(text).then(res => console.log(res));
-      this.filteredTags = ['test', 'test1'].filter(
-        option => option.toString()
-          .toLowerCase()
-          .indexOf(text.toLowerCase()) >= 0);
+    getFilteredTags(token) {
+      autocomplete(token, 'type_1').then((res) => { this.filteredTags = res; });
     },
   },
 };
