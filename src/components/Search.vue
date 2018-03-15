@@ -1,14 +1,27 @@
 <template>
   <div class="search">
+
     <section class="panel-block">
-        <b-taginput
+      <div class="dropdown" :class="{'is-active': showMenu }" @keyup.enter="showMenu = false" >
+      <b-taginput
+          @keydown.enter="showMenu = false"
+          @blur="showMenu = false"
+          @input="showMenu = false"
+          @typing="showMenu = true"
           v-model="queryField"
           icon="tag"
-          @typing="getFilteredTags"
-          :data="filteredTags"
-          placeholder="ajouter un tag de recherche ...">
+          placeholder="ajouter un tag ...">
         </b-taginput>
+        <div class="dropdown-menu" @click="showMenu = false">
+          <div class="dropdown-content">
+            <div class="dropdown-item">
+              <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+
     <br/>
     <div class="container is-fluid">
       <div v-if="this.entry.length === 0">
@@ -40,7 +53,7 @@ export default {
       entry: '',
       queryField: [],
       filteredTags: [],
-      current_ac: '',
+      showMenu: false,
     };
   },
   watch: {
@@ -51,7 +64,7 @@ export default {
   },
   methods: {
     debounceQuery: _.debounce(function () {
-      query(this.queryField.join(' ')).then((data) => { this.entry = data; });
+      query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
     getFilteredTags(token) {
       autocomplete(token, 'type_1').then((res) => { this.filteredTags = res; });
