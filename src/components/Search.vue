@@ -2,8 +2,9 @@
   <div class="search">
 
     <section class="panel-block">
-      <div class="dropdown is-4" :class="{'is-hoverable': showMenu }" @keyup.enter="showMenu = false" >
+      <div class="dropdown" :class="{'is-hoverable': showMenu }" @keyup.enter="showMenu = false" >
       <b-taginput
+        ref="taginput"
         @blur="showMenu = false"
           @input="showMenu = false"
           @typing="showMenu = true"
@@ -39,7 +40,6 @@
 <script>
 import _ from 'lodash';
 import query from '../methods/query';
-import autocomplete from '../methods/autocomplete';
 import Collapse from './Collapse';
 
 export default {
@@ -53,6 +53,7 @@ export default {
       queryField: [],
       filteredTags: [],
       showMenu: false,
+      newTag: '',
     };
   },
   watch: {
@@ -60,14 +61,27 @@ export default {
       this.entry = '...';
       this.debounceQuery();
     },
+    newTag() {
+      if (this.newTag) {
+        this.debounceAutocomplete();
+      }
+    },
+  },
+  mounted() {
+    this.$watch(
+      () => {
+        this.newTag = this.$refs.taginput.newTag;
+      },
+    );
   },
   methods: {
     debounceQuery: _.debounce(function () {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
-    getFilteredTags(token) {
-      autocomplete(token, 'type_1').then((res) => { this.filteredTags = res; });
-    },
+    debounceAutocomplete: _.debounce(function () {
+      this.queryField.push(this.newTag);
+      this.$refs.taginput.newTag = '';
+    }, 600),
   },
 };
 </script>
