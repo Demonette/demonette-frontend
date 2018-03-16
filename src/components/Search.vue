@@ -2,16 +2,17 @@
   <div class="search">
 
     <section class="panel-block">
-      <div class="dropdown" :class="{'is-hoverable': showMenu }" @keyup.enter="showMenu = false" >
-      <b-taginput
-        ref="taginput"
-        @blur="showMenu = false"
+      <div class="dropdown" :class="{'is-active': showMenu }" @keyup.enter="showMenu = false" >
+        <custom-tag-input
+          ref="taginput"
+          @blur="showMenu = false"
           @input="showMenu = false"
           @typing="showMenu = true"
           v-model="queryField"
           icon="tag"
+          iconPack="fa"
           placeholder="ajouter un tag ...">
-        </b-taginput>
+        </custom-tag-input>
         <div class="dropdown-menu" @click="showMenu = false" @blur="showMenu = false">
           <div class="dropdown-content">
             <div class="dropdown-item">
@@ -41,9 +42,12 @@
 import _ from 'lodash';
 import query from '../methods/query';
 import Collapse from './Collapse';
+import autocomplete from '../methods/autocomplete';
+import CustomTagInput from './CustomTagInput';
 
 export default {
   components: {
+    CustomTagInput,
     Collapse,
   },
   name: 'Search',
@@ -54,6 +58,7 @@ export default {
       filteredTags: [],
       showMenu: false,
       newTag: '',
+      dropDownField: {},
     };
   },
   watch: {
@@ -79,9 +84,9 @@ export default {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
     debounceAutocomplete: _.debounce(function () {
-      this.queryField.push(this.newTag);
-      this.$refs.taginput.newTag = '';
-    }, 600),
+      autocomplete(this.newTag).then((data) => { this.dropDownField = data; });
+      console.log(this.dropDownField);
+    }, 50),
   },
 };
 </script>
