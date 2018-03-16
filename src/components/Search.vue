@@ -2,17 +2,16 @@
   <div class="search">
 
     <section class="panel-block">
-      <div class="dropdown" :class="{'is-active': showMenu }" @keyup.enter="showMenu = false" >
+      <div class="dropdown is-4" :class="{'is-hoverable': showMenu }" @keyup.enter="showMenu = false" >
       <b-taginput
-          @keydown.enter="showMenu = false"
-          @blur="showMenu = false"
+        @blur="showMenu = false"
           @input="showMenu = false"
           @typing="showMenu = true"
           v-model="queryField"
           icon="tag"
           placeholder="ajouter un tag ...">
         </b-taginput>
-        <div class="dropdown-menu" @click="showMenu = false">
+        <div class="dropdown-menu" @click="showMenu = false" @blur="showMenu = false">
           <div class="dropdown-content">
             <div class="dropdown-item">
               <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
