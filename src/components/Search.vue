@@ -6,6 +6,7 @@
         <custom-tag-input
           ref="taginput"
           @blur="showMenu = false"
+          @focus="showMenu = true"
           @input="showMenu = false"
           @typing="showMenu = true"
           v-model="queryField"
@@ -85,7 +86,6 @@ export default {
     }, 300),
     debounceAutocomplete: _.debounce(function () {
       autocomplete(this.newTag).then((data) => { this.dropDownField = data; });
-      console.log(this.dropDownField);
     }, 50),
   },
 };
