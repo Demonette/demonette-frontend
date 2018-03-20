@@ -15,10 +15,10 @@
         <div class="dropdown-menu" v-show="showMenu">
           <div class="dropdown-content">
             <div class="dropdown-item">
-              <aside class="menu">
-                <div v-for="(v, k) in dropDownField" v-if="v.length > 0" v-bind:key="k">
+              <aside class="menu" v-if="empty()">
+                <div v-for="(v, k) in dropDownField" v-bind:key="k" v-if="v.length > 0">
                   <p class="menu-label">
-                    {{ k }}
+                    {{ k }} ({{ v.length }})
                   </p>
                   <ul class="menu-list" >
                     <li v-for="el in v" v-bind:key="el">
@@ -29,6 +29,7 @@
                   </ul>
                 </div>
               </aside>
+              <p v-else>aucun résultat ...</p>
             </div>
           </div>
         </div>
@@ -109,6 +110,11 @@ export default {
       this.$refs.taginput.newTag = '';
       this.showMenu = false;
       this.selected = false;
+    },
+    empty() {
+      let cpt = 0;
+      Object.keys(this.dropDownField).forEach((k) => { cpt += this.dropDownField[k].length; });
+      return (cpt > 0);
     },
   },
 };
