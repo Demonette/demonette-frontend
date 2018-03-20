@@ -2,11 +2,9 @@
   <div class="search">
 
     <section class="panel-block">
-      <div class="dropdown" :class="{'is-active': showMenu }" @keyup.enter="showMenu = false" >
+      <div class="dropdown is-active">
         <custom-tag-input
           ref="taginput"
-          @blur="showMenu = false"
-          @focus="showMenu = true"
           @input="showMenu = false"
           @typing="showMenu = true"
           v-model="queryField"
@@ -14,8 +12,7 @@
           iconPack="fa"
           placeholder="ajouter un tag ...">
         </custom-tag-input>
-        <transition name="fade">
-        <div class="dropdown-menu" @click="showMenu = false" @blur="showMenu = false">
+        <div class="dropdown-menu" v-show="showMenu">
           <div class="dropdown-content">
             <div class="dropdown-item">
               <aside class="menu">
@@ -23,15 +20,18 @@
                   <p class="menu-label">
                     {{ k }}
                   </p>
-                  <ul  class="menu-list">
-                    <li v-for="el in v" v-bind:key="el"><a>{{ el }}</a></li>
+                  <ul class="menu-list" >
+                    <li v-for="el in v" v-bind:key="el">
+                      <a v-on:click="autocomplete(el)">
+                        {{ el }}
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </aside>
             </div>
           </div>
         </div>
-        </transition>
       </div>
     </section>
 
@@ -82,6 +82,7 @@ export default {
       if (this.newTag !== '') {
         this.debounceAutocomplete();
       } else {
+        this.showMenu = false;
         this.dropDownField = {};
       }
     },
@@ -103,6 +104,12 @@ export default {
           this.dropDownField = data;
         });
     }, 50),
+    autocomplete(el) {
+      this.queryField.push(el);
+      this.$refs.taginput.newTag = '';
+      this.showMenu = false;
+      this.selected = false;
+    },
   },
 };
 </script>
