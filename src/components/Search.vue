@@ -12,30 +12,11 @@
           iconPack="fa"
           placeholder="ajouter un tag ...">
         </custom-tag-input>
-        <div class="dropdown-menu" v-show="showMenu">
-          <div class="dropdown-content">
-            <div class="dropdown-item">
-              <aside class="menu" v-if="empty()">
-                <div v-for="(v, k) in dropDownField" v-bind:key="k" v-if="v.length > 0">
-                  <p class="menu-label">
-                    {{ k }} ({{ v.length }})
-                  </p>
-                  <ul class="menu-list" >
-                    <li v-for="el in v" v-bind:key="el">
-                      <a v-on:click="autocomplete(el)">
-                        {{ el }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </aside>
-              <p v-else>aucun résultat ...</p>
-            </div>
-          </div>
-        </div>
+       <auto-complete-drop-down :showMenu="showMenu"
+                                :dropDownField="dropDownField"
+                                @clicked="autocomplete"/>
       </div>
     </section>
-
     <br/>
     <div class="container is-fluid">
       <div v-if="this.entry.length === 0">
@@ -57,9 +38,11 @@ import query from '../methods/query';
 import Collapse from './Collapse';
 import autocomplete from '../methods/autocomplete';
 import CustomTagInput from './CustomTagInput';
+import AutoCompleteDropDown from './AutoCompleteDropDown';
 
 export default {
   components: {
+    AutoCompleteDropDown,
     CustomTagInput,
     Collapse,
   },
@@ -111,20 +94,6 @@ export default {
       this.showMenu = false;
       this.selected = false;
     },
-    empty() {
-      let cpt = 0;
-      Object.keys(this.dropDownField).forEach((k) => { cpt += this.dropDownField[k].length; });
-      return (cpt > 0);
-    },
   },
 };
 </script>
-<style scoped>
-  .dropdown-menu {
-    min-width: 100%;
-  }
-  .dropdown-content {
-    overflow: auto;
-    max-height: 200px;
-  }
-</style>
