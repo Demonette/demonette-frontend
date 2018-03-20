@@ -1,0 +1,52 @@
+<template>
+  <div class="dropdown-menu" v-show="showMenu">
+    <div class="dropdown-content">
+      <div class="dropdown-item">
+        <aside class="menu" v-if="empty()">
+          <div v-for="(v, k) in dropDownField" v-bind:key="k" v-if="v.length > 0">
+            <p class="menu-label">
+              {{ k }} ({{ v.length }})
+            </p>
+            <ul class="menu-list" >
+              <li v-for="el in v" v-bind:key="el">
+                <a v-on:click="onClick(el)">
+                  {{ el }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <p v-else>aucun résultat ...</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'auto-complete-drop-down',
+  props: ['showMenu', 'dropDownField'],
+  methods: {
+    empty() {
+      let cpt = 0;
+      Object.keys(this.dropDownField)
+        .forEach((k) => { cpt += this.dropDownField[k].length; });
+      return (cpt > 0);
+    },
+    onClick(event) {
+      this.$emit('clicked', event);
+    },
+  },
+};
+</script>
+
+<style scoped>
+  .dropdown-menu {
+    min-width: 100%;
+  }
+  .dropdown-content {
+    overflow: auto;
+    max-height: 200px;
+  }
+</style>
+

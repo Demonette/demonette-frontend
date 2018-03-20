@@ -29,9 +29,9 @@
 </template>
 
 <script>
-  import TableEntry from './TableEntry';
+import TableEntry from './TableEntry';
 
-  export default {
+export default {
   components: { TableEntry },
   name: 'collapse',
   props: ['parentEntry'],

@@ -1,11 +1,21 @@
 <template>
   <div class="search">
+
     <section class="panel-block">
-        <b-taginput
+      <div class="dropdown is-active">
+        <custom-tag-input
+          ref="taginput"
+          @input="showMenu = false"
+          @typing="showMenu = true"
           v-model="queryField"
           icon="tag"
-          placeholder="ajouter un tag de recherche ...">
-        </b-taginput>
+          iconPack="fa"
+          placeholder="ajouter un tag ...">
+        </custom-tag-input>
+       <auto-complete-drop-down :showMenu="showMenu"
+                                :dropDownField="dropDownField"
+                                @clicked="autocomplete"/>
+      </div>
     </section>
     <br/>
     <div class="container is-fluid">
@@ -26,16 +36,25 @@
 import _ from 'lodash';
 import query from '../methods/query';
 import Collapse from './Collapse';
+import autocomplete from '../methods/autocomplete';
+import CustomTagInput from './CustomTagInput';
+import AutoCompleteDropDown from './AutoCompleteDropDown';
 
 export default {
   components: {
+    AutoCompleteDropDown,
+    CustomTagInput,
     Collapse,
   },
   name: 'Search',
   data() {
     return {
       entry: '',
-      queryField: '',
+      queryField: [],
+      filteredTags: [],
+      showMenu: false,
+      newTag: '',
+      dropDownField: {},
     };
   },
   watch: {
@@ -43,11 +62,38 @@ export default {
       this.entry = '...';
       this.debounceQuery();
     },
+    newTag() {
+      if (this.newTag !== '') {
+        this.debounceAutocomplete();
+      } else {
+        this.showMenu = false;
+        this.dropDownField = {};
+      }
+    },
+  },
+  mounted() {
+    this.$watch(
+      () => {
+        this.newTag = this.$refs.taginput.newTag;
+      },
+    );
   },
   methods: {
     debounceQuery: _.debounce(function () {
-      query(this.queryField.join(' ')).then((data) => { this.entry = data; });
+      query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
+    debounceAutocomplete: _.debounce(function () {
+      autocomplete(this.newTag)
+        .then((data) => {
+          this.dropDownField = data;
+        });
+    }, 50),
+    autocomplete(el) {
+      this.queryField.push(el);
+      this.$refs.taginput.newTag = '';
+      this.showMenu = false;
+      this.selected = false;
+    },
   },
 };
 </script>
