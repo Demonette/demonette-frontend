@@ -14,6 +14,7 @@
           iconPack="fa"
           placeholder="ajouter un tag ...">
         </custom-tag-input>
+        <transition name="fade">
         <div class="dropdown-menu" @click="showMenu = false" @blur="showMenu = false">
           <div class="dropdown-content">
             <div class="dropdown-item">
@@ -30,6 +31,7 @@
             </div>
           </div>
         </div>
+        </transition>
       </div>
     </section>
 
@@ -77,8 +79,10 @@ export default {
       this.debounceQuery();
     },
     newTag() {
-      if (this.newTag) {
+      if (this.newTag !== '') {
         this.debounceAutocomplete();
+      } else {
+        this.dropDownField = {};
       }
     },
   },
@@ -94,19 +98,20 @@ export default {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
     debounceAutocomplete: _.debounce(function () {
-      if (this.newTag !== '') {
-        autocomplete(this.newTag)
-          .then((data) => {
-            this.dropDownField = data;
-          });
-      } else {
-        this.dropDownField = {};
-      }
+      autocomplete(this.newTag)
+        .then((data) => {
+          this.dropDownField = data;
+        });
     }, 50),
   },
 };
 </script>
 <style scoped>
+  .dropdown-menu {
+    min-width: 100%;
+  }
   .dropdown-content {
+    overflow: auto;
+    max-height: 200px;
   }
 </style>
