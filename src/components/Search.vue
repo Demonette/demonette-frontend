@@ -17,7 +17,16 @@
         <div class="dropdown-menu" @click="showMenu = false" @blur="showMenu = false">
           <div class="dropdown-content">
             <div class="dropdown-item">
-              <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
+              <aside class="menu">
+                <div v-for="(v, k) in dropDownField" v-if="v.length > 0" v-bind:key="k">
+                  <p class="menu-label">
+                    {{ k }}
+                  </p>
+                  <ul  class="menu-list">
+                    <li v-for="el in v" v-bind:key="el"><a>{{ el }}</a></li>
+                  </ul>
+                </div>
+              </aside>
             </div>
           </div>
         </div>
@@ -85,8 +94,19 @@ export default {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
     debounceAutocomplete: _.debounce(function () {
-      autocomplete(this.newTag).then((data) => { this.dropDownField = data; });
+      if (this.newTag !== '') {
+        autocomplete(this.newTag)
+          .then((data) => {
+            this.dropDownField = data;
+          });
+      } else {
+        this.dropDownField = {};
+      }
     }, 50),
   },
 };
 </script>
+<style scoped>
+  .dropdown-content {
+  }
+</style>
