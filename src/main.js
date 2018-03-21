@@ -8,7 +8,9 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: 'fa',
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,13 +1,22 @@
 <template>
   <div class="search">
-    <div class="panel-block">
-      <p class="control has-icons-left">
-        <input class="input" type="text" placeholder="search" v-model="queryField">
-        <span class="icon is-left">
-            <i class="fas fa-search"></i>
-          </span>
-      </p>
-    </div>
+
+    <section class="panel-block">
+      <div class="dropdown is-active">
+        <custom-tag-input
+          ref="taginput"
+          @input="showMenu = false"
+          @typing="showMenu = true"
+          v-model="queryField"
+          icon="tag"
+          iconPack="fa"
+          placeholder="ajouter un tag ...">
+        </custom-tag-input>
+       <auto-complete-drop-down :showMenu="showMenu"
+                                :dropDownField="dropDownField"
+                                @clicked="autocomplete"/>
+      </div>
+    </section>
     <br/>
     <div class="container is-fluid">
       <div v-if="this.entry.length === 0">
@@ -17,59 +26,35 @@
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <b-collapse class="box" v-for="el in entry" :key="el._id" :open="false">
-          <div slot="trigger" slot-scope="props">
-            <p>
-              <strong class="is-size-3">
-                {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
-              </strong>
-              <small class="is-size-4">{{el._source.type_1}}/{{el._source.type_2}} </small>
-              <br/>
-              <small><i>ressource : {{el._source.ori_couple}}</i></small>
-            </p>
-            <br/>
-            <nav class="level is-mobile">
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small" :icon="props.open ? 'menu-down' : 'menu-up'">
-                    <i class="is-size-4" v-show="!props.open">...</i>
-                  </span>
-                </a>
-              </div>
-            </nav>
-          </div>
-          <div class="columns">
-          <div class="card-content" v-for="(features, entity) in returnformatRequest(el._source)">
-            <table class="table is-bordered is-striped is-hoverable column">
-              <h1 class="title is-size-4">
-                <strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong>
-              </h1>
-              <tbody>
-                <tr v-for="f in features">
-                  <th>{{ f.name }}</th>
-                  <td>{{ f.value }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          </div>
-        </b-collapse>
+        <collapse :parentEntry="this.entry"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import _ from 'lodash';
-  import formatRequest from '../methods/formatRequest';
-  import query from '../methods/query';
+import _ from 'lodash';
+import query from '../methods/query';
+import Collapse from './Collapse';
+import autocomplete from '../methods/autocomplete';
+import CustomTagInput from './CustomTagInput';
+import AutoCompleteDropDown from './AutoCompleteDropDown';
 
-  export default {
+export default {
+  components: {
+    AutoCompleteDropDown,
+    CustomTagInput,
+    Collapse,
+  },
   name: 'Search',
   data() {
     return {
       entry: '',
-      queryField: '',
+      queryField: [],
+      filteredTags: [],
+      showMenu: false,
+      newTag: '',
+      dropDownField: {},
     };
   },
   watch: {
@@ -77,13 +62,38 @@
       this.entry = '...';
       this.debounceQuery();
     },
+    newTag() {
+      if (this.newTag !== '') {
+        this.debounceAutocomplete();
+      } else {
+        this.showMenu = false;
+        this.dropDownField = {};
+      }
+    },
+  },
+  mounted() {
+    this.$watch(
+      () => {
+        this.newTag = this.$refs.taginput.newTag;
+      },
+    );
   },
   methods: {
-    returnformatRequest(sourceEntry) { return formatRequest(sourceEntry); },
-    // eslint-disable-next-line func-names
     debounceQuery: _.debounce(function () {
       query(this.queryField).then((data) => { this.entry = data; });
     }, 300),
+    debounceAutocomplete: _.debounce(function () {
+      autocomplete(this.newTag)
+        .then((data) => {
+          this.dropDownField = data;
+        });
+    }, 50),
+    autocomplete(el) {
+      this.queryField.push(el);
+      this.$refs.taginput.newTag = '';
+      this.showMenu = false;
+      this.selected = false;
+    },
   },
 };
 </script>
