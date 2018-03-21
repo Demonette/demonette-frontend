@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div class="card-content" v-for="(features, entity) in returnFormatRequest(el._source)">
-      <table class="table is-bordered is-striped is-hoverable column">
+  <div class="columns">
+    <div class="card-content column" v-for="(features, entity) in returnFormatRequest(el._source)">
+      <table class="table is-bordered is-striped is-hoverable">
         <h1 class="title is-size-4">
-          <strong>· {{el._source[entity] ? el._source[entity] : entity }} ·</strong>
+          ·{{el._source[entity] ? el._source[entity] : entity }}·
         </h1>
         <tbody>
         <tr v-for="f in features">
