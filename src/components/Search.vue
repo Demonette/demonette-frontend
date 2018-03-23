@@ -19,7 +19,9 @@
     </section>
     <br/>
     <div class="container is-fluid">
-      <div v-if="this.entry.length === 0">
+      <div v-if="this.queryField.length === 0">
+      </div>
+      <div v-else-if="this.entry.length === 0">
         <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
       </div>
       <div v-else-if="this.entry === '...'">
