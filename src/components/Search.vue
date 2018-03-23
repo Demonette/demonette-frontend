@@ -62,7 +62,7 @@ export default {
   watch: {
     queryField() {
       this.entry = '...';
-      this.debounceQuery();
+      query(this.queryField).then((data) => { this.entry = data; });
     },
     newTag() {
       if (this.newTag !== '') {
@@ -81,15 +81,12 @@ export default {
     );
   },
   methods: {
-    debounceQuery: _.debounce(function () {
-      query(this.queryField).then((data) => { this.entry = data; });
-    }, 300),
     debounceAutocomplete: _.debounce(function () {
       autocomplete(this.newTag)
         .then((data) => {
           this.dropDownField = data;
         });
-    }, 50),
+    }, 100),
     autocomplete(el) {
       this.queryField.push(el);
       this.$refs.taginput.newTag = '';
