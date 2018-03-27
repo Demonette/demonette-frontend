@@ -1,22 +1,26 @@
 <template>
   <div class="search">
-
-    <section class="panel-block">
+    <section class="container is-fluid">
+      <b-field>
       <div class="dropdown is-active">
+      <b-input icon="fa fa-search"
+               v-model="autoQuery"
+               @focus="showMenu = true"
+               placeholder="rechercher ..."></b-input>
+        <auto-complete-drop-down v-if="autoQuery.length !== 0"
+          :showMenu="showMenu"
+          :dropDownField="dropDownField"
+          @clicked="autocomplete"/></div>
+      </b-field>
+      <b-field label="Tags :">
         <custom-tag-input
-          ref="taginput"
           @input="showMenu = false"
           @typing="showMenu = true"
-          v-model="queryField"
-          icon="tag"
-          iconPack="fa"
-          placeholder="ajouter un tag ...">
+          v-model="queryField">
         </custom-tag-input>
-       <auto-complete-drop-down :showMenu="showMenu"
-                                :dropDownField="dropDownField"
-                                @clicked="autocomplete"/>
-      </div>
+      </b-field>
     </section>
+    <hr/>
     <br/>
     <div class="container is-fluid">
       <div v-if="this.queryField.length === 0">
@@ -51,6 +55,7 @@ export default {
   name: 'Search',
   data() {
     return {
+      autoQuery: '',
       entry: '',
       queryField: [],
       filteredTags: [],
@@ -62,10 +67,12 @@ export default {
   watch: {
     queryField() {
       this.entry = '...';
-      query(this.queryField).then((data) => { this.entry = data; });
+      query(this.queryField
+        .map(el => (el.split(': ')[1])))
+        .then((data) => { this.entry = data; });
     },
-    newTag() {
-      if (this.newTag !== '') {
+    autoQuery() {
+      if (this.autoQuery !== '') {
         this.debounceAutocomplete();
       } else {
         this.showMenu = false;
@@ -73,24 +80,17 @@ export default {
       }
     },
   },
-  mounted() {
-    this.$watch(
-      () => {
-        this.newTag = this.$refs.taginput.newTag;
-      },
-    );
-  },
   methods: {
     debounceAutocomplete: _.debounce(function () {
-      autocomplete(this.newTag)
+      autocomplete(this.autoQuery)
         .then((data) => {
           this.dropDownField = data;
         });
     }, 100),
-    autocomplete(el) {
-      this.queryField.push(el);
-      this.$refs.taginput.newTag = '';
+    autocomplete(el, key) {
+      this.queryField.push(`${key}: ${el}`);
       this.showMenu = false;
+      this.autoQuery = '';
       this.selected = false;
     },
   },
