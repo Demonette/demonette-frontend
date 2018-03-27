@@ -13,10 +13,15 @@
           @clicked="autocomplete"/></div>
       </b-field>
       <b-field label="Tags utilisés pour la recherche :">
-        <b-taglist>
-          <b-tag @close="removeTag(idx)" size="is-medium"
-                 closable v-for="(t,idx) in queryField">{{ t }}</b-tag>
+      <b-field grouped>
+        <div class="control"   v-for="(t,idx) in queryField">
+        <b-taglist attached>
+          <b-tag type="is-primary">{{ t.split(": ")[0] }}</b-tag>
+          <b-tag @close="removeTag(idx)"
+                  closable>{{ t.split(": ")[1] }}</b-tag>
         </b-taglist>
+        </div>
+      </b-field>
       </b-field>
     </section>
     <hr/>
@@ -74,6 +79,7 @@ export default {
     },
     autoQuery() {
       if (this.autoQuery !== '') {
+        this.showMenu = true;
         this.debounceAutocomplete();
       } else {
         this.showMenu = false;
