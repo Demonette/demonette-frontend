@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <section class="container is-fluid">
-      <b-field>
+      <b-field label="Rechercher :">
       <div class="dropdown is-active">
       <b-input icon="fa fa-search"
                v-model="autoQuery"
@@ -12,12 +12,11 @@
           :dropDownField="dropDownField"
           @clicked="autocomplete"/></div>
       </b-field>
-      <b-field label="Tags :">
-        <custom-tag-input
-          @input="showMenu = false"
-          @typing="showMenu = true"
-          v-model="queryField">
-        </custom-tag-input>
+      <b-field label="Tags utilisés pour la recherche :">
+        <b-taglist>
+          <b-tag @close="removeTag(idx)" size="is-medium"
+                 closable v-for="(t,idx) in queryField">{{ t }}</b-tag>
+        </b-taglist>
       </b-field>
     </section>
     <hr/>
@@ -45,9 +44,11 @@ import Collapse from './Collapse';
 import autocomplete from '../methods/autocomplete';
 import CustomTagInput from './CustomTagInput';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
+import BField from 'buefy/src/components/field/Field';
 
 export default {
   components: {
+    BField,
     AutoCompleteDropDown,
     CustomTagInput,
     Collapse,
@@ -92,6 +93,9 @@ export default {
       this.showMenu = false;
       this.autoQuery = '';
       this.selected = false;
+    },
+    removeTag(index) {
+      this.queryField.splice(index, 1);
     },
   },
 };
