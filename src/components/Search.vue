@@ -31,6 +31,16 @@
         <collapse :parentEntry="this.entry"/>
       </div>
     </div>
+    <hr/>
+    <b-pagination
+      class="container is-fluid"
+      :total="200"
+      :current.sync="current"
+      :per-page="20"
+      :simple="false"
+      size="is-small">
+    </b-pagination>
+    <hr/>
   </div>
 </template>
 
@@ -56,15 +66,19 @@ export default {
       filteredTags: [],
       showMenu: false,
       newTag: '',
-      querySize: 4,
+      querySize: 10,
       queryFrom: 0,
       dropDownField: {},
+      current: 1,
     };
   },
   watch: {
     queryField() {
       this.entry = '...';
-      query(this.queryField, this.querySize, this.queryFrom).then((res) => { this.entry = res.data; });
+      query(
+        this.queryField,
+        this.querySize,
+        this.queryFrom).then((res) => { this.entry = res.data; });
     },
     newTag() {
       if (this.newTag !== '') {
