@@ -56,13 +56,15 @@ export default {
       filteredTags: [],
       showMenu: false,
       newTag: '',
+      querySize: 4,
+      queryFrom: 0,
       dropDownField: {},
     };
   },
   watch: {
     queryField() {
       this.entry = '...';
-      query(this.queryField).then((data) => { this.entry = data; });
+      query(this.queryField, this.querySize, this.queryFrom).then((res) => { this.entry = res.data; });
     },
     newTag() {
       if (this.newTag !== '') {
