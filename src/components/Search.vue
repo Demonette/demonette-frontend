@@ -31,16 +31,18 @@
         <collapse :parentEntry="this.entry"/>
       </div>
     </div>
-    <hr/>
-    <b-pagination
-      class="container is-fluid"
-      :total="200"
-      :current.sync="current"
-      :per-page="20"
-      :simple="false"
-      size="is-small">
-    </b-pagination>
-    <hr/>
+    <template v-if="this.entry.length !== 0">
+      <hr/>
+      <b-pagination
+        class="container is-fluid"
+        :total="total"
+        :current.sync="queryFrom"
+        :per-page="querySize"
+        :simple="false"
+        size="is-small">
+      </b-pagination>
+      <hr/>
+    </template>
   </div>
 </template>
 
@@ -66,10 +68,10 @@ export default {
       filteredTags: [],
       showMenu: false,
       newTag: '',
-      querySize: 10,
-      queryFrom: 0,
+      querySize: 3,
+      queryFrom: 1,
+      total: 0,
       dropDownField: {},
-      current: 1,
     };
   },
   watch: {
@@ -78,7 +80,7 @@ export default {
       query(
         this.queryField,
         this.querySize,
-        this.queryFrom).then((res) => { this.entry = res.data; });
+        this.queryFrom).then((res) => { this.entry = res.data; this.total = res.total; });
     },
     newTag() {
       if (this.newTag !== '') {
@@ -87,6 +89,13 @@ export default {
         this.showMenu = false;
         this.dropDownField = {};
       }
+    },
+    queryFrom() {
+      this.entry = '...';
+      query(
+        this.queryField,
+        this.querySize,
+        this.queryFrom).then((res) => { this.entry = res.data; this.total = res.total; });
     },
   },
   mounted() {
