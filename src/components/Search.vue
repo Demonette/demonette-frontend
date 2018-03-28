@@ -28,14 +28,14 @@
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <collapse :parentEntry="this.entry"/>
+        <collapse :entry="this.entry"/>
       </div>
     </div>
     <template v-if="this.entry.length !== 0">
       <hr/>
       <b-pagination
         class="container is-fluid"
-        :total="total"
+        :total=" total > 9900 ? 9900 : total"
         :current.sync="queryFrom"
         :per-page="querySize"
         :simple="false"
@@ -68,7 +68,7 @@ export default {
       filteredTags: [],
       showMenu: false,
       newTag: '',
-      querySize: 3,
+      querySize: 30,
       queryFrom: 1,
       total: 0,
       dropDownField: {},
@@ -76,11 +76,11 @@ export default {
   },
   watch: {
     queryField() {
-      this.entry = '...';
       query(
         this.queryField,
         this.querySize,
-        this.queryFrom).then((res) => { this.entry = res.data; this.total = res.total; });
+        this.queryFrom)
+        .then((res) => { this.entry = res.data; this.total = res.total; });
     },
     newTag() {
       if (this.newTag !== '') {
@@ -91,11 +91,11 @@ export default {
       }
     },
     queryFrom() {
-      this.entry = '...';
       query(
         this.queryField,
         this.querySize,
-        this.queryFrom).then((res) => { this.entry = res.data; this.total = res.total; });
+        ((this.queryFrom - 1) * this.querySize))
+        .then((res) => { this.entry = res.data; this.total = res.total; });
     },
   },
   mounted() {

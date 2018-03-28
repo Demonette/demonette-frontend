@@ -32,11 +32,7 @@ import TableEntry from './TableEntry';
 export default {
   components: { TableEntry },
   name: 'collapse',
-  props: ['parentEntry'],
-  data() {
-    return {
-      entry: this.parentEntry,
-    };
-  },
+  props: ['entry'],
+
 };
 </script>
