@@ -22,9 +22,7 @@
     </section>
     <br/>
     <div class="container is-fluid">
-      <div v-if="this.queryField.length === 0">
-      </div>
-      <div v-else-if="this.entry.length === 0">
+      <div v-if="this.entry.length === 0">
         <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
       </div>
       <div v-else-if="this.entry === '...'">
@@ -66,7 +64,7 @@
 
 <script>
 import _ from 'lodash';
-import query from '../methods/query';
+import checkQueryField from '../methods/checkQueryField';
 import Collapse from './Collapse';
 import autocomplete from '../methods/autocomplete';
 import CustomTagInput from './CustomTagInput';
@@ -94,10 +92,7 @@ export default {
   },
   watch: {
     queryField() {
-      query(
-        this.queryField,
-        this.querySize,
-        this.queryFrom)
+      checkQueryField(this.queryField, this.querySize, this.queryFrom)
         .then((res) => { this.entry = res.data; this.total = res.total; });
     },
     newTag() {
@@ -109,19 +104,23 @@ export default {
       }
     },
     queryFrom() {
-      query(
+      checkQueryField(
         this.queryField,
         this.querySize,
         ((this.queryFrom - 1) * this.querySize))
         .then((res) => { this.entry = res.data; this.total = res.total; });
     },
     querySize() {
-      query(
+      checkQueryField(
         this.queryField,
         this.querySize,
         ((this.queryFrom - 1) * this.querySize))
         .then((res) => { this.entry = res.data; this.total = res.total; });
     },
+  },
+  created() {
+    checkQueryField(this.queryField, this.querySize, this.queryFrom)
+      .then((res) => { this.entry = res.data; this.total = res.total; });
   },
   mounted() {
     this.$watch(
