@@ -1,38 +1,65 @@
 <template>
   <div class="search">
-    <section class="panel-block">
-      <b-field grouped>
-        <b-field label="Rechercher">
-          <div class="dropdown is-active">
-            <custom-tag-input
-              ref="taginput"
-              @input="showMenu = false"
-              @typing="showMenu = true"
-              v-model="queryField"
-              icon="tag"
-              iconPack="fa"
-              placeholder="ajouter un tag ...">
-            </custom-tag-input>
-            <auto-complete-drop-down :showMenu="showMenu"
-                                     :dropDownField="dropDownField"
-                                     @clicked="autocomplete"/>
-          </div>
+    <section class="columns container is-fluid">
+      <aside class="menu column is-2">
+        <p class="menu-label">
+          General
+        </p>
+        <ul class="menu-list">
+          <li><a>Dashboard</a></li>
+          <li><a>Customers</a></li>
+        </ul>
+        <p class="menu-label">
+          Administration
+        </p>
+        <ul class="menu-list">
+          <li><a>Team Settings</a></li>
+          <li>
+            <a class="is-active">Manage Your Team</a>
+            <ul>
+              <li><a>Members</a></li>
+              <li><a>Plugins</a></li>
+              <li><a>Add a member</a></li>
+            </ul>
+          </li>
+          <li><a>Invitations</a></li>
+          <li><a>Cloud Storage Environment Settings</a></li>
+          <li><a>Authentication</a></li>
+        </ul>
+      </aside>
+      <div class="column container is-fluid">
+        <b-field grouped>
+          <b-field label="Rechercher">
+            <div class="dropdown is-active">
+              <custom-tag-input
+                ref="taginput"
+                @input="showMenu = false"
+                @typing="showMenu = true"
+                v-model="queryField"
+                icon="tag"
+                iconPack="fa"
+                placeholder="ajouter un tag ...">
+              </custom-tag-input>
+              <auto-complete-drop-down :showMenu="showMenu"
+                                       :dropDownField="dropDownField"
+                                       @clicked="autocomplete"/>
+            </div>
+          </b-field>
         </b-field>
-      </b-field>
+        <br/>
+        <div>
+          <div v-if="this.entry.length === 0">
+            <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
+          </div>
+          <div v-else-if="this.entry === '...'">
+            <p class="has-text-centered is-size-4">{{ this.entry }}</p>
+          </div>
+          <div v-else>
+            <collapse :entry="this.entry"/>
+          </div>
+        </div>
+      </div>
     </section>
-    <br/>
-    <div class="container is-fluid">
-      <div v-if="this.entry.length === 0">
-        <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
-      </div>
-      <div v-else-if="this.entry === '...'">
-        <p class="has-text-centered is-size-4">{{ this.entry }}</p>
-      </div>
-      <div v-else>
-        <collapse :entry="this.entry"/>
-      </div>
-    </div>
-
     <div class="" v-if="this.entry.length !== 0">
       <hr/>
       <b-field class="container is-fluid" grouped>
@@ -59,7 +86,7 @@
         </b-field>
       </b-field>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
