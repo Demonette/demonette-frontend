@@ -2,9 +2,6 @@
   <div class="search">
     <section class="columns container is-fluid">
       <aside class="menu column is-2">
-        <p class="menu-label">
-          General
-        </p>
         <ul class="menu-list">
           <li><a>Dashboard</a></li>
           <li><a>Customers</a></li>
@@ -115,12 +112,13 @@ export default {
       queryFrom: 1,
       total: 0,
       dropDownField: {},
+      facetsFilter: {},
     };
   },
   watch: {
     queryField() {
       checkQueryField(this.queryField, this.querySize, this.queryFrom)
-        .then((res) => { this.entry = res.data; this.total = res.total; });
+        .then((res) => { this.entry = res.data; this.total = res.total; this.facetsFilter = res; });
     },
     newTag() {
       if (this.newTag !== '') {
