@@ -8,5 +8,5 @@ export default function query(queryField, querySize, queryFrom) {
     .then(response => ({
       data: response.data.hits.hits,
       total: response.data.hits.total,
-      facet: response }));
+      facet: response.data.aggregations }));
 }

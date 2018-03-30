@@ -2,26 +2,19 @@
   <div class="search">
     <section class="columns container is-fluid">
       <aside class="menu column is-2">
-        <ul class="menu-list">
-          <li><a>Dashboard</a></li>
-          <li><a>Customers</a></li>
-        </ul>
-        <p class="menu-label">
-          Administration
-        </p>
-        <ul class="menu-list">
-          <li><a>Team Settings</a></li>
+        <ul class="menu-list" v-for="(v, k) in facetsFilter"
+            v-if="facetsFilter[`count-${k}`] !== 0 && !(k.includes('count-'))">
           <li>
-            <a class="is-active">Manage Your Team</a>
+            <a><strong>{{ k }}</strong> ({{ facetsFilter[`count-${k}`].value }})</a>
             <ul>
-              <li><a>Members</a></li>
-              <li><a>Plugins</a></li>
-              <li><a>Add a member</a></li>
+              <li @click="queryField.push(Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
+                v-for="i in v.buckets">
+                <a>
+                  {{ Object.values(i.dedup_docs.hits.hits[0]._source)[0] }} ({{ i.doc_count }})
+                </a>
+              </li>
             </ul>
           </li>
-          <li><a>Invitations</a></li>
-          <li><a>Cloud Storage Environment Settings</a></li>
-          <li><a>Authentication</a></li>
         </ul>
       </aside>
       <div class="column container is-fluid">
@@ -118,7 +111,11 @@ export default {
   watch: {
     queryField() {
       checkQueryField(this.queryField, this.querySize, this.queryFrom)
-        .then((res) => { this.entry = res.data; this.total = res.total; this.facetsFilter = res; });
+        .then((res) => {
+          this.entry = res.data;
+          this.total = res.total;
+          this.facetsFilter = res.facet;
+        });
     },
     newTag() {
       if (this.newTag !== '') {
@@ -133,19 +130,31 @@ export default {
         this.queryField,
         this.querySize,
         ((this.queryFrom - 1) * this.querySize))
-        .then((res) => { this.entry = res.data; this.total = res.total; });
+        .then((res) => {
+          this.entry = res.data;
+          this.total = res.total;
+          this.facetsFilter = res.facet;
+        });
     },
     querySize() {
       checkQueryField(
         this.queryField,
         this.querySize,
         ((this.queryFrom - 1) * this.querySize))
-        .then((res) => { this.entry = res.data; this.total = res.total; });
+        .then((res) => {
+          this.entry = res.data;
+          this.total = res.total;
+          this.facetsFilter = res.facet;
+        });
     },
   },
   created() {
     checkQueryField(this.queryField, this.querySize, this.queryFrom)
-      .then((res) => { this.entry = res.data; this.total = res.total; });
+      .then((res) => {
+        this.entry = res.data;
+        this.total = res.total;
+        this.facetsFilter = res.facet;
+      });
   },
   mounted() {
     this.$watch(
@@ -166,6 +175,9 @@ export default {
       this.$refs.taginput.newTag = '';
       this.showMenu = false;
       this.selected = false;
+    },
+    addTag() {
+      console.log('ok');
     },
   },
 };
