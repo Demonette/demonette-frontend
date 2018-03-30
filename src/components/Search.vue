@@ -7,9 +7,9 @@
           <li>
             <a><strong>{{ k }}</strong> ({{ facetsFilter[`count-${k}`].value }})</a>
             <ul>
-              <li @click="queryField.push(Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
+              <li @click="addTag(Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
                 v-for="i in v.buckets">
-                <a>
+                <a :class="{'is-active': queryField.includes(Object.values(i.dedup_docs.hits.hits[0]._source)[0])}">
                   {{ Object.values(i.dedup_docs.hits.hits[0]._source)[0] }} ({{ i.doc_count }})
                 </a>
               </li>
@@ -176,8 +176,12 @@ export default {
       this.showMenu = false;
       this.selected = false;
     },
-    addTag() {
-      console.log('ok');
+    addTag(el) {
+      if (!this.queryField.includes(el)) {
+        this.queryField.push(el);
+      } else {
+        this.queryField.splice(this.queryField.indexOf(el), 1);
+      }
     },
   },
 };
