@@ -1,5 +1,42 @@
 <template>
   <div class="search">
+    <section class="container is-fluid">
+      <b-field label="Rechercher :">
+      <div class="dropdown is-active">
+      <b-input icon="fa fa-search"
+               v-model="autoQuery"
+               @focus="showMenu = true"
+               placeholder="rechercher ..."></b-input>
+        <auto-complete-drop-down v-if="autoQuery.length !== 0"
+          :showMenu="showMenu"
+          :dropDownField="dropDownField"
+          @clicked="autocomplete"/></div>
+      </b-field>
+      <b-field label="Tags utilisés pour la recherche :">
+      <b-field grouped>
+        <div class="control"   v-for="(t,idx) in queryField">
+        <b-taglist attached>
+          <b-tag type="is-primary">{{ t.split(": ")[0] }}</b-tag>
+          <b-tag @close="removeTag(idx)"
+                  closable>{{ t.split(": ")[1] }}</b-tag>
+        </b-taglist>
+        </div>
+      </b-field>
+      </b-field>
+    </section>
+    <hr/>
+    <br/>
+    <div class="container is-fluid">
+      <div v-if="this.queryField.length === 0">
+      </div>
+      <div v-else-if="this.entry.length === 0">
+        <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
+      </div>
+      <div v-else-if="this.entry === '...'">
+        <p class="has-text-centered is-size-4">{{ this.entry }}</p>
+      </div>
+      <div v-else>
+        <collapse :parentEntry="this.entry"/>
     <section class="columns container is-fluid">
       <facet-search class="column is-2" :facetFilter="facetFilter" :queryField="queryField"/>
       <div class="column container is-fluid">
@@ -83,6 +120,7 @@ export default {
   name: 'Search',
   data() {
     return {
+      autoQuery: '',
       entry: '',
       queryField: [],
       filteredTags: [],
@@ -103,9 +141,14 @@ export default {
           this.total = res.total;
           this.facetFilter = res.facet;
         });
+      this.entry = '...';
+      query(this.queryField
+        .map(el => (el.split(': ')[1])))
+        .then((data) => { this.entry = data; });
     },
-    newTag() {
-      if (this.newTag !== '') {
+    autoQuery() {
+      if (this.autoQuery !== '') {
+        this.showMenu = true;
         this.debounceAutocomplete();
       } else {
         this.showMenu = false;
@@ -143,25 +186,21 @@ export default {
         this.facetFilter = res.facet;
       });
   },
-  mounted() {
-    this.$watch(
-      () => {
-        this.newTag = this.$refs.taginput.newTag;
-      },
-    );
-  },
   methods: {
     debounceAutocomplete: _.debounce(function () {
-      autocomplete(this.newTag)
+      autocomplete(this.autoQuery)
         .then((data) => {
           this.dropDownField = data;
         });
     }, 100),
-    autocomplete(el) {
-      this.queryField.push(el);
-      this.$refs.taginput.newTag = '';
+    autocomplete(el, key) {
+      this.queryField.push(`${key}: ${el}`);
       this.showMenu = false;
+      this.autoQuery = '';
       this.selected = false;
+    },
+    removeTag(index) {
+      this.queryField.splice(index, 1);
     },
   },
 };
