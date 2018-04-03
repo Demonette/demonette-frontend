@@ -1,12 +1,14 @@
 <template>
   <div class="search">
     <section class="container is-fluid">
+      <!--<facet-search class="column is-2" :facetFilter="facetFilter" :queryField="queryField"/>-->
       <b-field label="Rechercher :">
       <div class="dropdown is-active">
       <b-input icon="fa fa-search"
                v-model="autoQuery"
                @focus="showMenu = true"
-               placeholder="rechercher ..."></b-input>
+               placeholder="rechercher ...">
+      </b-input>
         <auto-complete-drop-down v-if="autoQuery.length !== 0"
           :showMenu="showMenu"
           :dropDownField="dropDownField"
@@ -14,11 +16,11 @@
       </b-field>
       <b-field label="Tags utilisés pour la recherche :">
       <b-field grouped>
-        <div class="control"   v-for="(t,idx) in queryField">
+        <div class="control" v-for="(t,idx) in queryField">
         <b-taglist attached>
-          <b-tag type="is-primary">{{ t.split(": ")[0] }}</b-tag>
+          <b-tag type="is-primary">{{ t }}</b-tag>
           <b-tag @close="removeTag(idx)"
-                  closable>{{ t.split(": ")[1] }}</b-tag>
+                  closable>{{ typeField[idx] }}</b-tag>
         </b-taglist>
         </div>
       </b-field>
@@ -27,52 +29,16 @@
     <hr/>
     <br/>
     <div class="container is-fluid">
-      <div v-if="this.queryField.length === 0">
-      </div>
-      <div v-else-if="this.entry.length === 0">
+      <div v-if="this.entry.length === 0">
         <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
       </div>
       <div v-else-if="this.entry === '...'">
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <collapse :parentEntry="this.entry"/>
-    <section class="columns container is-fluid">
-      <facet-search class="column is-2" :facetFilter="facetFilter" :queryField="queryField"/>
-      <div class="column container is-fluid">
-        <b-field grouped>
-          <b-field label="Rechercher">
-            <div class="dropdown is-active">
-              <custom-tag-input
-                ref="taginput"
-                @input="showMenu = false"
-                @typing="showMenu = true"
-                v-model="queryField"
-                icon="tag"
-                iconPack="fa"
-                placeholder="ajouter un tag ...">
-              </custom-tag-input>
-              <auto-complete-drop-down :showMenu="showMenu"
-                                       :dropDownField="dropDownField"
-                                       @clicked="autocomplete"/>
-            </div>
-          </b-field>
-        </b-field>
-        <br/>
-        <div>
-          <div v-if="this.entry.length === 0">
-            <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
-          </div>
-          <div v-else-if="this.entry === '...'">
-            <p class="has-text-centered is-size-4">{{ this.entry }}</p>
-          </div>
-          <div v-else>
-            <collapse :entry="this.entry"/>
-          </div>
-        </div>
+        <collapse :entry="this.entry"/>
       </div>
-    </section>
-    <div class="" v-if="this.entry.length !== 0">
+    <div v-if="this.entry.length !== 0">
       <hr/>
       <b-field class="container is-fluid" grouped>
         <b-field>
@@ -99,6 +65,7 @@
       </b-field>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -122,10 +89,10 @@ export default {
     return {
       autoQuery: '',
       entry: '',
+      typeField: [],
       queryField: [],
       filteredTags: [],
       showMenu: false,
-      newTag: '',
       querySize: 15,
       queryFrom: 1,
       total: 0,
@@ -141,10 +108,6 @@ export default {
           this.total = res.total;
           this.facetFilter = res.facet;
         });
-      this.entry = '...';
-      query(this.queryField
-        .map(el => (el.split(': ')[1])))
-        .then((data) => { this.entry = data; });
     },
     autoQuery() {
       if (this.autoQuery !== '') {
@@ -194,13 +157,15 @@ export default {
         });
     }, 100),
     autocomplete(el, key) {
-      this.queryField.push(`${key}: ${el}`);
+      this.queryField.push(el);
+      this.typeField.push(key);
       this.showMenu = false;
       this.autoQuery = '';
       this.selected = false;
     },
     removeTag(index) {
       this.queryField.splice(index, 1);
+      this.typeField.splice(index, 1);
     },
   },
 };
