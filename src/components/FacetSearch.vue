@@ -5,12 +5,12 @@
       <li>
         <a><strong>{{ k }}</strong> ({{ facetFilter[`count-${k}`].value }})</a>
         <ul>
-          <li @click="addTag(k ,Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
+          <li @click="addTag(k, getSource(i))"
               v-for="i in v.buckets"
-              v-bind:key="Object.values(i.dedup_docs.hits.hits[0]._source)[0]">
+              v-bind:key="getSource(i)">
             <a :class="{'is-active':
-                queryField.includes(Object.values(i.dedup_docs.hits.hits[0]._source)[0])}">
-              {{ Object.values(i.dedup_docs.hits.hits[0]._source)[0] }} ({{ i.doc_count }})
+                queryField.includes(getSource(i))}">
+              {{ getSource(i) }} ({{ i.doc_count }})
             </a>
           </li>
         </ul>
@@ -32,6 +32,10 @@ export default {
         this.queryField.splice(this.queryField.indexOf(el), 1);
         this.typeField.splice(this.queryField.indexOf(el), 1);
       }
+    },
+    getSource(value) {
+      // eslint-disable-next-line no-underscore-dangle
+      return Object.values(value.dedup_docs.hits.hits[0]._source)[0];
     },
   },
 };
