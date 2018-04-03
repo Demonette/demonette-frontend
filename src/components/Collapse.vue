@@ -21,7 +21,7 @@
           </div>
         </nav>
       </div>
-      <table-entry class="container" :parentEl="el"/>
+      <table-entry :parentEl="el"/>
     </b-collapse>
   </div>
 </template>

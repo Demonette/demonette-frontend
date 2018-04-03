@@ -29,6 +29,7 @@
         </header>
       </div>
     </section>
+    <br/>
     <router-view/>
   </div>
 </template>
