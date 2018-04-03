@@ -105,12 +105,7 @@ export default {
   },
   watch: {
     queryField() {
-      checkQueryField(this.queryField, this.querySize, this.queryFrom)
-        .then((res) => {
-          this.entry = res.data;
-          this.total = res.total;
-          this.facetFilter = res.facet;
-        });
+      this.request();
     },
     autoQuery() {
       if (this.autoQuery !== '') {
@@ -122,37 +117,24 @@ export default {
       }
     },
     queryFrom() {
-      checkQueryField(
-        this.queryField,
-        this.querySize,
-        ((this.queryFrom - 1) * this.querySize))
-        .then((res) => {
-          this.entry = res.data;
-          this.total = res.total;
-          this.facetFilter = res.facet;
-        });
+      this.request();
     },
     querySize() {
-      checkQueryField(
-        this.queryField,
-        this.querySize,
-        ((this.queryFrom - 1) * this.querySize))
-        .then((res) => {
-          this.entry = res.data;
-          this.total = res.total;
-          this.facetFilter = res.facet;
-        });
+      this.request();
     },
   },
   created() {
-    checkQueryField(this.queryField, this.querySize, this.queryFrom)
-      .then((res) => {
-        this.entry = res.data;
-        this.total = res.total;
-        this.facetFilter = res.facet;
-      });
+    this.request();
   },
   methods: {
+    request() {
+      checkQueryField(this.queryField, this.querySize, ((this.queryFrom - 1) * this.querySize))
+        .then((res) => {
+          this.entry = res.data;
+          this.total = res.total;
+          this.facetFilter = res.facet;
+        });
+    },
     debounceAutocomplete: _.debounce(function () {
       autocomplete(this.autoQuery)
         .then((data) => {
