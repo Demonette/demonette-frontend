@@ -8,24 +8,25 @@
     <section class="column is-fluid">
       <b-field label="Rechercher :">
       <div class="dropdown is-active">
-      <b-input icon="fa fa-search"
-               v-model="autoQuery"
-               @focus="showMenu = true"
-               placeholder="rechercher ...">
-      </b-input>
-        <auto-complete-drop-down v-if="autoQuery.length !== 0"
-          :showMenu="showMenu"
-          :dropDownField="dropDownField"
-          @clicked="autocomplete"/></div>
+        <b-input icon="fa fa-search"
+                 v-model="autoQuery"
+                 @focus="showMenu = true"
+                 placeholder="rechercher ...">
+        </b-input>
+          <auto-complete-drop-down v-if="autoQuery.length !== 0"
+            :showMenu="showMenu"
+            :dropDownField="dropDownField"
+            @clicked="autocomplete"/>
+      </div>
       </b-field>
       <b-field label="Tags utilisés pour la recherche :">
       <b-field grouped>
         <div class="control" v-for="(t,idx) in queryField">
-        <b-taglist attached>
-          <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
-          <b-tag @close="removeTag(idx)"
-                  closable>{{ t }}</b-tag>
-        </b-taglist>
+          <b-taglist attached>
+            <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
+            <b-tag @close="removeTag(idx)"
+                    closable>{{ t }}</b-tag>
+          </b-taglist>
         </div>
       </b-field>
       </b-field>
@@ -77,7 +78,6 @@ import _ from 'lodash';
 import checkQueryField from '../methods/checkQueryField';
 import Collapse from './Collapse';
 import autocomplete from '../methods/autocomplete';
-import CustomTagInput from './CustomTagInput';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
 import FacetSearch from './FacetSearch';
 
@@ -85,7 +85,6 @@ export default {
   components: {
     FacetSearch,
     AutoCompleteDropDown,
-    CustomTagInput,
     Collapse,
   },
   name: 'Search',

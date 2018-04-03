@@ -6,7 +6,8 @@
         <a><strong>{{ k }}</strong> ({{ facetFilter[`count-${k}`].value }})</a>
         <ul>
           <li @click="addTag(k ,Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
-              v-for="i in v.buckets" v-bind:key="i">
+              v-for="i in v.buckets"
+              v-bind:key="Object.values(i.dedup_docs.hits.hits[0]._source)[0]">
             <a :class="{'is-active':
                 queryField.includes(Object.values(i.dedup_docs.hits.hits[0]._source)[0])}">
               {{ Object.values(i.dedup_docs.hits.hits[0]._source)[0] }} ({{ i.doc_count }})
