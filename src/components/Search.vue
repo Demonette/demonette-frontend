@@ -1,7 +1,10 @@
 <template>
   <div class="search">
-    <section class="container is-fluid">
-      <!--<facet-search class="column is-2" :facetFilter="facetFilter" :queryField="queryField"/>-->
+    <facet-search class="column is-2"
+                  :facetFilter="facetFilter"
+                  :queryField="queryField"
+                  :typeField="typeField"/>
+    <section class="column is-fluid">
       <b-field label="Rechercher :">
       <div class="dropdown is-active">
       <b-input icon="fa fa-search"
@@ -18,14 +21,13 @@
       <b-field grouped>
         <div class="control" v-for="(t,idx) in queryField">
         <b-taglist attached>
-          <b-tag type="is-primary">{{ t }}</b-tag>
+          <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
           <b-tag @close="removeTag(idx)"
-                  closable>{{ typeField[idx] }}</b-tag>
+                  closable>{{ t }}</b-tag>
         </b-taglist>
         </div>
       </b-field>
       </b-field>
-    </section>
     <hr/>
     <br/>
     <div class="container is-fluid">
@@ -38,33 +40,34 @@
       <div v-else>
         <collapse :entry="this.entry"/>
       </div>
-    <div v-if="this.entry.length !== 0">
-      <hr/>
-      <b-field class="container is-fluid" grouped>
-        <b-field>
-          <b-pagination
-            class="container is-fluid"
-            :total=" total > 9900 ? 9900 : total"
-            :current.sync="queryFrom"
-            :per-page="querySize"
-            :simple="false"
-            size="is-small">
-          </b-pagination>
-        </b-field>
-        <b-field>
-          <p>Résultats par page: </p>
-        </b-field>
-        <b-field>
-          <b-select v-model="querySize" size="is-small">
-            <option value="5">5</option>
-            <option selected value="15">15</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </b-select>
-        </b-field>
-      </b-field>
     </div>
-  </div>
+    </section>
+    <!--<div v-if="this.entry.length !== 0">-->
+      <!--<hr/>-->
+      <!--<b-field class="container is-fluid" grouped>-->
+        <!--<b-field>-->
+          <!--<b-pagination-->
+            <!--class="container is-fluid"-->
+            <!--:total=" total > 9900 ? 9900 : total"-->
+            <!--:current.sync="queryFrom"-->
+            <!--:per-page="querySize"-->
+            <!--:simple="false"-->
+            <!--size="is-small">-->
+          <!--</b-pagination>-->
+        <!--</b-field>-->
+        <!--<b-field>-->
+          <!--<p>Résultats par page: </p>-->
+        <!--</b-field>-->
+        <!--<b-field>-->
+          <!--<b-select v-model="querySize" size="is-small">-->
+            <!--<option value="5">5</option>-->
+            <!--<option selected value="15">15</option>-->
+            <!--<option value="25">25</option>-->
+            <!--<option value="50">50</option>-->
+          <!--</b-select>-->
+        <!--</b-field>-->
+      <!--</b-field>-->
+    <!--</div>-->
   </div>
 </template>
 
