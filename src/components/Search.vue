@@ -1,5 +1,6 @@
 <template>
   <div class="search">
+    <div class="columns">
     <facet-search class="column is-2"
                   :facetFilter="facetFilter"
                   :queryField="queryField"
@@ -42,32 +43,32 @@
       </div>
     </div>
     </section>
-    <!--<div v-if="this.entry.length !== 0">-->
-      <!--<hr/>-->
-      <!--<b-field class="container is-fluid" grouped>-->
-        <!--<b-field>-->
-          <!--<b-pagination-->
-            <!--class="container is-fluid"-->
-            <!--:total=" total > 9900 ? 9900 : total"-->
-            <!--:current.sync="queryFrom"-->
-            <!--:per-page="querySize"-->
-            <!--:simple="false"-->
-            <!--size="is-small">-->
-          <!--</b-pagination>-->
-        <!--</b-field>-->
-        <!--<b-field>-->
-          <!--<p>Résultats par page: </p>-->
-        <!--</b-field>-->
-        <!--<b-field>-->
-          <!--<b-select v-model="querySize" size="is-small">-->
-            <!--<option value="5">5</option>-->
-            <!--<option selected value="15">15</option>-->
-            <!--<option value="25">25</option>-->
-            <!--<option value="50">50</option>-->
-          <!--</b-select>-->
-        <!--</b-field>-->
-      <!--</b-field>-->
-    <!--</div>-->
+  </div>
+    <div v-if="this.entry.length !== 0">
+      <hr/>
+      <b-field grouped class="container">
+        <b-field>
+          <b-pagination
+            :total=" total > 9900 ? 9900 : total"
+            :current.sync="queryFrom"
+            :per-page="querySize"
+            :simple="false"
+            size="is-small">
+          </b-pagination>
+        </b-field>
+        <b-field>
+          <p>Résultats par page: </p>
+        </b-field>
+        <b-field>
+          <b-select v-model="querySize" size="is-small">
+            <option value="5">5</option>
+            <option selected value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </b-select>
+        </b-field>
+      </b-field>
+    </div>
   </div>
 </template>
 

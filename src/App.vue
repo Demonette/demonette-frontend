@@ -26,7 +26,7 @@
           </div>
         </header>
     <br/>
-    <router-view class="columns"/>
+    <router-view/>
   </div>
 </template>
 
