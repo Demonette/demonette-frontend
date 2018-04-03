@@ -1,22 +1,7 @@
 <template>
   <div class="search">
     <section class="columns container is-fluid">
-      <aside class="menu column is-2">
-        <ul class="menu-list" v-for="(v, k) in facetsFilter"
-            v-if="facetsFilter[`count-${k}`] !== 0 && !(k.includes('count-'))">
-          <li>
-            <a><strong>{{ k }}</strong> ({{ facetsFilter[`count-${k}`].value }})</a>
-            <ul>
-              <li @click="addTag(Object.values(i.dedup_docs.hits.hits[0]._source)[0])"
-                v-for="i in v.buckets">
-                <a :class="{'is-active': queryField.includes(Object.values(i.dedup_docs.hits.hits[0]._source)[0])}">
-                  {{ Object.values(i.dedup_docs.hits.hits[0]._source)[0] }} ({{ i.doc_count }})
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </aside>
+      <facet-search class="column is-2" :facetFilter="facetFilter" :queryField="queryField"/>
       <div class="column container is-fluid">
         <b-field grouped>
           <b-field label="Rechercher">
@@ -86,9 +71,11 @@ import Collapse from './Collapse';
 import autocomplete from '../methods/autocomplete';
 import CustomTagInput from './CustomTagInput';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
+import FacetSearch from './FacetSearch';
 
 export default {
   components: {
+    FacetSearch,
     AutoCompleteDropDown,
     CustomTagInput,
     Collapse,
@@ -105,7 +92,7 @@ export default {
       queryFrom: 1,
       total: 0,
       dropDownField: {},
-      facetsFilter: {},
+      facetFilter: {},
     };
   },
   watch: {
@@ -114,7 +101,7 @@ export default {
         .then((res) => {
           this.entry = res.data;
           this.total = res.total;
-          this.facetsFilter = res.facet;
+          this.facetFilter = res.facet;
         });
     },
     newTag() {
@@ -133,7 +120,7 @@ export default {
         .then((res) => {
           this.entry = res.data;
           this.total = res.total;
-          this.facetsFilter = res.facet;
+          this.facetFilter = res.facet;
         });
     },
     querySize() {
@@ -144,7 +131,7 @@ export default {
         .then((res) => {
           this.entry = res.data;
           this.total = res.total;
-          this.facetsFilter = res.facet;
+          this.facetFilter = res.facet;
         });
     },
   },
@@ -153,7 +140,7 @@ export default {
       .then((res) => {
         this.entry = res.data;
         this.total = res.total;
-        this.facetsFilter = res.facet;
+        this.facetFilter = res.facet;
       });
   },
   mounted() {
@@ -175,13 +162,6 @@ export default {
       this.$refs.taginput.newTag = '';
       this.showMenu = false;
       this.selected = false;
-    },
-    addTag(el) {
-      if (!this.queryField.includes(el)) {
-        this.queryField.push(el);
-      } else {
-        this.queryField.splice(this.queryField.indexOf(el), 1);
-      }
     },
   },
 };
