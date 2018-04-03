@@ -9,7 +9,7 @@
             </p>
             <ul class="menu-list" >
               <li v-for="el in v" v-bind:key="el">
-                <a v-on:click="onClick(el)">
+                <a v-on:click="onClick(el,k)">
                   {{ el }}
                 </a>
               </li>
@@ -33,8 +33,8 @@ export default {
         .forEach((k) => { cpt += this.dropDownField[k].length; });
       return (cpt > 0);
     },
-    onClick(event) {
-      this.$emit('clicked', event);
+    onClick(element, key) {
+      this.$emit('clicked', element, key);
     },
   },
 };

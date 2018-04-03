@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-primary">
-      <div class="hero-head">
-        <header class="navbar">
+        <header class="navbar is-primary">
           <div class="navbar-brand">
             <a class="navbar-item" href="http://redac.univ-tlse2.fr/lexiques/demonette.html">
               Démonette
@@ -27,8 +25,7 @@
             </div>
           </div>
         </header>
-      </div>
-    </section>
+    <br/>
     <router-view/>
   </div>
 </template>

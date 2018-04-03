@@ -21,7 +21,7 @@
           </div>
         </nav>
       </div>
-      <table-entry class="container" :parentEl="el"/>
+      <table-entry :parentEl="el"/>
     </b-collapse>
   </div>
 </template>
@@ -32,11 +32,7 @@ import TableEntry from './TableEntry';
 export default {
   components: { TableEntry },
   name: 'collapse',
-  props: ['parentEntry'],
-  data() {
-    return {
-      entry: this.parentEntry,
-    };
-  },
+  props: ['entry'],
+
 };
 </script>
