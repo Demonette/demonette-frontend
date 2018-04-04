@@ -4,23 +4,23 @@
         v-if="facetFilter[`count-${k}`] !== 0 && !(k.includes('count-'))" v-bind:key="k">
       <li>
         <a><strong>{{ k }}</strong> ({{ facetFilter[`count-${k}`].value }})</a>
-        <ul>
-          <li @click="addTag(k, getSource(i))"
-              v-for="i in v.buckets"
-              v-bind:key="getSource(i)">
-            <a :class="{'is-active':
-                queryField.includes(getSource(i))}">
-              {{ getSource(i) }} ({{ i.doc_count }})
-            </a>
-          </li>
-        </ul>
+        <facet-elements
+          :queryField="queryField"
+          :typeField="typeField"
+          :facetValue="v"
+          :facetKey="k"/>
       </li>
     </ul>
   </aside>
 </template>
 
 <script>
+import FacetElements from './FacetElements';
+
 export default {
+  components: {
+    FacetElements,
+  },
   name: 'facet-search',
   props: ['facetFilter', 'queryField', 'typeField'],
   methods: {
