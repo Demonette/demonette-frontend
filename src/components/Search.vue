@@ -104,6 +104,7 @@ export default {
   },
   watch: {
     queryField() {
+      this.queryFrom = 1;
       this.request();
     },
     autoQuery() {
