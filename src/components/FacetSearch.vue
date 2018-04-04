@@ -2,14 +2,12 @@
   <aside class="menu">
     <ul class="menu-list" v-for="(v, k) in facetFilter"
         v-if="facetFilter[`count-${k}`] !== 0 && !(k.includes('count-'))" v-bind:key="k">
-      <li>
-        <a><strong>{{ k }}</strong> ({{ facetFilter[`count-${k}`].value }})</a>
         <facet-elements
           :queryField="queryField"
           :typeField="typeField"
+          :facetFilter="facetFilter"
           :facetValue="v"
           :facetKey="k"/>
-      </li>
     </ul>
   </aside>
 </template>
