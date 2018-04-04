@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="columns">
-    <facet-search class="column is-2"
+    <facet-search class="facet column is-2"
                   :facetFilter="facetFilter"
                   :queryField="queryField"
                   :typeField="typeField"/>
@@ -19,7 +19,7 @@
             @clicked="autocomplete"/>
       </div>
       </b-field>
-      <b-field label="Tags utilisés pour la recherche :">
+      <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
       <b-field grouped>
         <div class="control" v-for="(t,idx) in queryField">
           <b-taglist attached>
@@ -155,3 +155,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .facet {
+    max-height: 93vh;
+    overflow-y: auto;
+  }
+</style>

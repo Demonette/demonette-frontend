@@ -14,8 +14,9 @@
         <nav class="level is-mobile">
           <div class="level-left">
             <a class="level-item">
-                  <span class="icon is-small" :icon="props.open ? 'menu-down' : 'menu-up'">
-                    <i class="is-size-4" v-show="!props.open">...</i>
+                  <span class="icon is-small"
+                        :icon="props.open ? 'menu-down' : 'menu-up'" v-show="!props.open">
+                    <i class="fas fa-angle-down"></i>
                   </span>
             </a>
           </div>
