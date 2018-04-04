@@ -3,7 +3,7 @@
     <b-collapse class="box" v-for="el in entry" :key="el._id" :open="false">
       <div slot="trigger" slot-scope="props">
         <p>
-          <strong class="is-size-3">
+          <strong class="is-size-4">
             {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
           </strong>
           <small class="is-size-4">{{el._source.type_1}}/{{el._source.type_2}} </small>

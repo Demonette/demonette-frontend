@@ -46,7 +46,7 @@ export default {
   }
   .dropdown-content {
     overflow: auto;
-    max-height: 200px;
+    max-height: 30vh;
   }
 </style>
 
