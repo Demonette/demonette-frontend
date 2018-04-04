@@ -14,6 +14,7 @@
                  placeholder="rechercher ...">
         </b-input>
           <auto-complete-drop-down v-if="autoQuery.length !== 0"
+             :autoQuery="autoQuery"
             :showMenu="showMenu"
             :dropDownField="dropDownField"
             @clicked="autocomplete"/>
