@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="columns">
-    <facet-search class="column is-2"
+    <facet-search class="facet column is-2"
                   :facetFilter="facetFilter"
                   :queryField="queryField"
                   :typeField="typeField"/>
@@ -19,7 +19,7 @@
             @clicked="autocomplete"/>
       </div>
       </b-field>
-      <b-field label="Tags utilisés pour la recherche :">
+      <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
       <b-field grouped>
         <div class="control" v-for="(t,idx) in queryField">
           <b-taglist attached>
@@ -62,8 +62,8 @@
         </b-field>
         <b-field>
           <b-select v-model="querySize" size="is-small">
-            <option value="5">5</option>
-            <option selected value="15">15</option>
+            <option selected value="5">5</option>
+            <option value="15">15</option>
             <option value="25">25</option>
             <option value="50">50</option>
           </b-select>
@@ -72,7 +72,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import _ from 'lodash';
 import checkQueryField from '../methods/checkQueryField';
@@ -96,7 +95,7 @@ export default {
       queryField: [],
       filteredTags: [],
       showMenu: false,
-      querySize: 15,
+      querySize: 5,
       queryFrom: 1,
       total: 0,
       dropDownField: {},
@@ -155,3 +154,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .facet {
+    max-height: 93vh;
+    overflow-y: auto;
+  }
+</style>
