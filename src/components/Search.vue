@@ -62,8 +62,8 @@
         </b-field>
         <b-field>
           <b-select v-model="querySize" size="is-small">
-            <option value="5">5</option>
-            <option selected value="15">15</option>
+            <option selected value="5">5</option>
+            <option value="15">15</option>
             <option value="25">25</option>
             <option value="50">50</option>
           </b-select>
@@ -72,7 +72,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import _ from 'lodash';
 import checkQueryField from '../methods/checkQueryField';
@@ -96,7 +95,7 @@ export default {
       queryField: [],
       filteredTags: [],
       showMenu: false,
-      querySize: 15,
+      querySize: 5,
       queryFrom: 1,
       total: 0,
       dropDownField: {},
