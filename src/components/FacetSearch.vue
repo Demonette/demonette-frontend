@@ -21,20 +21,5 @@ export default {
   },
   name: 'facet-search',
   props: ['facetFilter', 'queryField', 'typeField'],
-  methods: {
-    addTag(k, el) {
-      if (!this.queryField.includes(el)) {
-        this.queryField.push(el);
-        this.typeField.push(k);
-      } else {
-        this.queryField.splice(this.queryField.indexOf(el), 1);
-        this.typeField.splice(this.queryField.indexOf(el), 1);
-      }
-    },
-    getSource(value) {
-      // eslint-disable-next-line no-underscore-dangle
-      return Object.values(value.dedup_docs.hits.hits[0]._source)[0];
-    },
-  },
 };
 </script>
