@@ -24,12 +24,12 @@
           </div>
         </nav>
       </div>
-      <b-tabs v-model="activeTab">
+      <b-tabs>
         <b-tab-item label="Table">
           <table-entry :parentEl="el"/>
         </b-tab-item>
-        <b-tab-item label="Graph" :element="el">
-          <graph></graph>
+        <b-tab-item label="Graph">
+          <graph ref="graph" :element="el._source"/>
         </b-tab-item>
       </b-tabs>
     </b-collapse>
