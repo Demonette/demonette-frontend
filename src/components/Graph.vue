@@ -6,6 +6,7 @@
 
 <script>
 import D3Network from 'vue-d3-network';
+import networkBuilding from '../methods/networkBuilding';
 
 export default {
   name: 'graph',
@@ -16,23 +17,29 @@ export default {
   data() {
     return {
       nodes: [
-        { id: 1, name: this.element.graphie_2 },
-        { id: 2, name: this.element.graphie_1 },
+        { id: 1, name: this.element.graphie_2, _color: '#6600cc' },
+        { id: 2, name: this.element.graphie_1, _color: '#6600cc' },
       ],
       links: [
-        { sid: 1, tid: 2, _color: 'red' },
+        { sid: 1, tid: 2, _color: '#6600cc' },
+        { sid: 2, tid: 1, _color: '#6600cc' },
       ],
       options: {
         force: 3000,
         nodeSize: 20,
         nodeLabels: true,
-        linkWidth: 1,
+        linkWidth: 1.5,
         size: {
           h: window.innerHeight / 2.5,
           w: window.innerWidth / 1.4,
         },
       },
     };
+  },
+  mounted() {
+    const graph = networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 3);
+    this.nodes = graph.nodes;
+    this.links = graph.links;
   },
 };
 </script>
