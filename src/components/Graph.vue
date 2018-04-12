@@ -37,9 +37,10 @@ export default {
     };
   },
   mounted() {
-    const graph = networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 3);
-    this.nodes = graph.nodes;
-    this.links = graph.links;
+    networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 3).then((el) => {
+      this.nodes = el.nodes;
+      this.links = el.links;
+    });
   },
 };
 </script>
