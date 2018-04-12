@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 3).then((el) => {
+    networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 1).then((el) => {
       this.nodes = el.nodes;
       this.links = el.links;
     });

@@ -9,6 +9,7 @@ export default function networkBuilding(tokens, iteration, range) {
 function formatNodeLinks(nodeLinks, rootTokens) {
   const nodes = [];
   const links = [];
+  console.log(nodeLinks);
   Object.values(nodeLinks)
     .forEach(el => el.forEach(g => nodes.push(g)));
   const newNodes = Array.from(new Set(nodes))
@@ -33,6 +34,11 @@ function graphRequest(iteration, range, tokens, nodeLinks) {
       .get(`${url[process.env.NODE_ENV]}/graph?token=${t}`)))
     .then((res) => {
       const resMap = res.map(g => g.data);
-      return Object.assign(nodeLinks, resMap[0], resMap[1]);
-    });
+      // eslint-disable-next-line no-param-reassign
+      resMap.forEach((g) => { nodeLinks = Object.assign(nodeLinks, g); });
+      const nMap = [];
+      resMap.forEach(e => Object.values(e).forEach(a => a.forEach(b => nMap.push(b))));
+      return nMap;
+    })
+    .then(e => (iteration < range ? graphRequest(iteration + 1, range, e, nodeLinks) : nodeLinks));
 }
