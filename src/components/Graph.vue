@@ -1,19 +1,33 @@
 <template>
   <div>
-    <d3-network :net-nodes="nodes" :net-links="links" :options="options"/>
+    <b-field label="Profondeur" ref="network">
+      <b-select v-model="range">
+        <option selected value="0">1</option>
+        <option value="1">2</option>
+        <option value="2">3</option>
+        <option value="3">4</option>
+        <option value="4">5</option>
+      </b-select>
+    </b-field>
+    <b-notification :closable="false">
+      <b-loading :active.sync="isLoading"></b-loading>
+      <d3-network :net-nodes="nodes" :net-links="links" :options="options"/>
+    </b-notification>
   </div>
 </template>
 
 <script>
 import D3Network from 'vue-d3-network';
 import networkBuilding from '../methods/networkBuilding';
+import BNotification from 'buefy/src/components/notification/Notification';
 
 export default {
   name: 'graph',
   components: {
+    BNotification,
     D3Network,
   },
-  props: ['element'],
+  props: ['element', 'selected'],
   data() {
     return {
       nodes: [
@@ -34,13 +48,30 @@ export default {
           w: window.innerWidth / 1.4,
         },
       },
+      range: 0,
+      isLoading: false,
+      isFullPage: false,
     };
   },
-  mounted() {
-    networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, 1).then((el) => {
-      this.nodes = el.nodes;
-      this.links = el.links;
-    });
+  watch: {
+    selected() {
+      if (this.selected) {
+        this.networkBuilding();
+      }
+    },
+    range() {
+      this.isLoading = true;
+      this.networkBuilding();
+    },
+  },
+  methods: {
+    networkBuilding() {
+      networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, this.range)
+        .then((el) => {
+          this.nodes = el.nodes;
+          this.links = el.links;
+        }).then(() => { this.isLoading = false; });
+    },
   },
 };
 </script>

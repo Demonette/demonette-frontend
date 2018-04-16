@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <b-collapse class="box" v-for="el in entry" :key="el._id" :open="isImageModalActive">
+    <b-collapse class="box" :key="el._id" :open="isImageModalActive" @open="open()">
       <div slot="trigger" slot-scope="props">
         <p>
           <strong class="is-size-4">
@@ -29,11 +28,10 @@
           <table-entry :parentEl="el"/>
         </b-tab-item>
         <b-tab-item label="Graph">
-          <graph ref="graph" :element="el._source"/>
+          <graph ref="graph" :element="el._source" :selected="selected"/>
         </b-tab-item>
       </b-tabs>
     </b-collapse>
-  </div>
 </template>
 
 <script>
@@ -43,11 +41,18 @@ import Graph from './Graph';
 export default {
   components: { TableEntry, Graph },
   name: 'collapse',
-  props: ['entry'],
+  props: ['el'],
   data() {
     return {
       isImageModalActive: false,
+      selected: false,
     };
+  },
+  methods: {
+    open() {
+      this.selected = true;
+    },
   },
 };
 </script>
+

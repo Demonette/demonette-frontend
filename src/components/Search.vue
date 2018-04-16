@@ -41,7 +41,7 @@
         <p class="has-text-centered is-size-4">{{ this.entry }}</p>
       </div>
       <div v-else>
-        <collapse :entry="this.entry"/>
+        <collapse-group :entry="this.entry"/>
       </div>
     </div>
     </section>
@@ -76,7 +76,7 @@
 <script>
 import _ from 'lodash';
 import checkQueryField from '../methods/checkQueryField';
-import Collapse from './Collapse';
+import CollapseGroup from './CollapseGroup';
 import autocomplete from '../methods/autocomplete';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
 import FacetSearch from './FacetSearch';
@@ -85,7 +85,7 @@ export default {
   components: {
     FacetSearch,
     AutoCompleteDropDown,
-    Collapse,
+    CollapseGroup,
   },
   name: 'Search',
   data() {
