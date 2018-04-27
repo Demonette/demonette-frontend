@@ -17,9 +17,9 @@
 </template>
 
 <script>
+import BNotification from 'buefy/src/components/notification/Notification';
 import D3Network from 'vue-d3-network';
 import networkBuilding from '../methods/networkBuilding';
-import BNotification from 'buefy/src/components/notification/Notification';
 
 export default {
   name: 'graph',

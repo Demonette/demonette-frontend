@@ -9,7 +9,6 @@ export default function networkBuilding(tokens, iteration, range) {
 function formatNodeLinks(nodeLinks, rootTokens) {
   const nodes = [];
   const links = [];
-  console.log(nodeLinks);
   Object.values(nodeLinks)
     .forEach(el => el.forEach(g => nodes.push(g)));
   const newNodes = Array.from(new Set(nodes))

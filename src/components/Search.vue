@@ -22,7 +22,7 @@
       </b-field>
       <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
       <b-field grouped>
-        <div class="control" v-for="(t,idx) in queryField">
+        <div class="control" v-for="(t,idx) in queryField" :key="t">
           <b-taglist attached>
             <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
             <b-tag @close="removeTag(idx)"
