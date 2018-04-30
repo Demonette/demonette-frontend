@@ -19,7 +19,7 @@
 <script>
 import BNotification from 'buefy/src/components/notification/Notification';
 import D3Network from 'vue-d3-network';
-import networkBuilding from '../methods/networkBuilding';
+import graphRequest from '../methods/graphRequest';
 
 export default {
   name: 'graph',
@@ -66,10 +66,10 @@ export default {
   },
   methods: {
     networkBuilding() {
-      networkBuilding([this.element.graphie_2, this.element.graphie_1], 0, this.range)
+      graphRequest([this.element.graphie_2, this.element.graphie_1], 0, this.range)
         .then((el) => {
-          this.nodes = el.nodes;
-          this.links = el.links;
+          this.nodes = el.data.nodes;
+          this.links = el.data.links;
         }).then(() => { this.isLoading = false; });
     },
   },
