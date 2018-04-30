@@ -1,13 +1,11 @@
 <template>
     <b-collapse class="box" :key="el._id" :open="isImageModalActive" @open="open()">
       <div slot="trigger" slot-scope="props">
-        <p>
-          <strong class="is-size-4">
-            {{el._source.graphie_1}}/{{el._source.graphie_2}} ·
-          </strong>
-          <small class="is-size-4">
-            {{el._source.type_1}}/{{el._source.type_2}}
-          </small>
+        <p class="is-size-5">
+            <strong>{{el._source.graphie_1}}</strong> ·
+            {{el._source.cat_1}} · {{el._source.type_1}} /
+            <strong>{{el._source.graphie_2}}</strong> ·
+            {{el._source.cat_2}} · {{el._source.type_2}}
           <br/>
           <small><i>ressource : {{el._source.ori_couple}}</i></small>
         </p>
@@ -55,4 +53,3 @@ export default {
   },
 };
 </script>
-
