@@ -2,12 +2,12 @@
     <b-collapse class="box" :key="el._id" :open="isImageModalActive" @open="open()">
       <div slot="trigger" slot-scope="props">
         <p class="is-size-5">
-            <strong>{{el._source.graphie_1}}</strong> ·
-            {{el._source.cat_1}} · {{el._source.type_1}} /
-            <strong>{{el._source.graphie_2}}</strong> ·
-            {{el._source.cat_2}} · {{el._source.type_2}}
+            <strong>{{el._source.graph_1}}</strong> ·
+            {{el._source.categorie_1}} · {{el._source.typeSemantique_1}} /
+            <strong>{{el._source.graph_2}}</strong> ·
+            {{el._source.categorie_2}} · {{el._source.typeSemantique_2}}
           <br/>
-          <small><i>ressource : {{el._source.ori_couple}}</i></small>
+          <small><i>ressource : {{el._source.origineCouple}}</i></small>
         </p>
         <br/>
         <nav class="level is-mobile">

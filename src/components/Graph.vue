@@ -31,8 +31,8 @@ export default {
   data() {
     return {
       nodes: [
-        { id: 1, name: this.element.graphie_2, _color: '#6600cc' },
-        { id: 2, name: this.element.graphie_1, _color: '#6600cc' },
+        { id: 1, name: this.element.graph_2, _color: '#6600cc' },
+        { id: 2, name: this.element.graph_1, _color: '#6600cc' },
       ],
       links: [
         { sid: 1, tid: 2, _color: '#6600cc' },
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     networkBuilding() {
-      graphRequest([this.element.graphie_2, this.element.graphie_1], 0, this.range)
+      graphRequest([this.element.graph_2, this.element.graph_1], 0, this.range)
         .then((el) => {
           this.nodes = el.data.nodes;
           this.links = el.data.links;
