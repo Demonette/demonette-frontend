@@ -1,12 +1,13 @@
 <template>
-  <div class="columns">
-    <div class="card-content column" v-for="(features, entity) in returnFormatRequest(el._source)">
+  <div class="columns container is-fluid">
+    <div class="card-content column" v-for="(features, entity) in
+        returnFormatRequest(el._source)" :key="entity">
       <table class="table is-bordered is-striped is-hoverable">
-        <h1 class="title is-size-4">
-          ·{{el._source[entity] ? el._source[entity] : entity }}·
+        <h1 class="title is-size-6">
+          {{el._source[entity] ? el._source[entity] : entity }}
         </h1>
         <tbody>
-        <tr v-for="f in features">
+        <tr v-for="(f, idx) in features" :key="idx">
           <th>{{ normLabel[f.name] }}</th>
           <td>
             <b-tooltip :label="f.origin" position="is-right" animated
@@ -31,18 +32,18 @@ export default {
     return {
       el: this.parentEl,
       normLabel: {
-        type_1: 'type',
-        cat_1: 'catégorie',
-        constr_1: 'construction',
-        type_constr_1: 'type de construction',
-        type_2: 'type',
-        cat_2: 'catégorie',
-        constr_2: 'construction',
-        type_constr_2: 'type de construction',
+        typeSemantique_1: 'type sémantique',
+        categorie_1: 'catégorie',
+        construction_1: 'construction',
+        typeConstruction_1: 'type de construction',
+        typeSemantique_2: 'type sémantique',
+        categorie_2: 'catégorie',
+        construction_2: 'construction',
+        typeConstruction_2: 'type de construction',
         complexite: 'complexité',
         orientation: 'orientation',
-        def_conc: 'définition concrète',
-        def_abs: 'définition abstraite',
+        definitionConcrete: 'définition concrète',
+        definitionAbstraite: 'définition abstraite',
       },
     };
   },

@@ -2,7 +2,7 @@
   <div id="app">
         <header class="navbar is-primary">
           <div class="navbar-brand">
-            <a class="navbar-item" href="http://redac.univ-tlse2.fr/lexiques/demonette.html">
+            <a class="navbar-item" href="https://www.ortolang.fr/market/lexicons/demonette" target="_blank">
               Démonette
             </a>
             <div class="navbar-burger">

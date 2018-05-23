@@ -10,7 +10,7 @@
             <ul class="menu-list" >
               <li v-for="el in v" v-bind:key="el">
                 <a v-on:click="onClick(el,k)">
-                  {{ el }}
+                      <b>{{ el.slice(0, autoQuery.length) }}</b>{{ el.slice(autoQuery.length)}}
                 </a>
               </li>
             </ul>
@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'auto-complete-drop-down',
-  props: ['showMenu', 'dropDownField'],
+  props: ['showMenu', 'dropDownField', 'autoQuery'],
   methods: {
     empty() {
       let cpt = 0;
@@ -46,7 +46,7 @@ export default {
   }
   .dropdown-content {
     overflow: auto;
-    max-height: 200px;
+    max-height: 30vh;
   }
 </style>
 

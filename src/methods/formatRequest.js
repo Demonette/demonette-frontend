@@ -1,23 +1,23 @@
 /* eslint-disable no-restricted-syntax,guard-for-in */
 export default function formatRequest(entryResult) {
   const res = {
-    graphie_1: [
-      { name: 'type_1' },
-      { name: 'cat_1' },
-      { name: 'constr_1' },
-      { name: 'type_constr_1' },
+    graph_1: [
+      { name: 'typeSemantique_1' },
+      { name: 'categorie_1' },
+      { name: 'construction_1' },
+      { name: 'typeConstruction_1' },
     ],
-    graphie_2: [
-      { name: 'type_2' },
-      { name: 'cat_2' },
-      { name: 'constr_2' },
-      { name: 'type_constr_2' },
+    graph_2: [
+      { name: 'typeSemantique_2' },
+      { name: 'categorie_2' },
+      { name: 'construction_2' },
+      { name: 'typeConstruction_2' },
     ],
     relation: [
       { name: 'complexite' },
       { name: 'orientation' },
-      { name: 'def_conc' },
-      { name: 'def_abs' },
+      { name: 'definitionConcrete' },
+      { name: 'definitionAbstraite' },
     ],
   };
   for (const entity in res) {
