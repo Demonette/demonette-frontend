@@ -7,7 +7,8 @@
           {{el._source[entity] ? el._source[entity] : entity }}
         </h1>
         <tbody>
-        <tr v-for="(f, idx) in features" :key="idx">
+        <tr v-for="(f, idx) in features" :key="idx"
+            v-if="f.value && Object.keys(normLabel).includes(f.name)">
           <th>{{ normLabel[f.name] }}</th>
           <td>
             <b-tooltip :label="f.origin" position="is-right" animated
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import formatRequest from '../methods/formatRequest';
+import formatPhoneticRequest from '../methods/formatPhoneticRequest';
 
 export default {
   name: 'table-entry',
@@ -32,43 +33,25 @@ export default {
     return {
       el: this.parentEl,
       normLabel: {
-        typeSemantique_1: 'type sémantique',
-        categorie_1: 'catégorie',
+        constructionPhonologique_1: 'construction phonologique',
+        rad: 'radicale',
         construction_1: 'construction',
         typeConstruction_1: 'type de construction',
-        typeSemantique_2: 'type sémantique',
-        categorie_2: 'catégorie',
+        constructionPhonologique_2: 'construction phonologique',
+        rad_2: 'radicale',
         construction_2: 'construction',
         typeConstruction_2: 'type de construction',
         complexite: 'complexité',
-        orientation: 'orientation',
-        definitionConcrete: 'définition concrète',
-        definitionAbstraite: 'définition abstraite',
-        tableFormat: {
-          graph_1: [
-            { name: 'typeSemantique_1' },
-            { name: 'categorie_1' },
-            { name: 'construction_1' },
-            { name: 'typeConstruction_1' },
-          ],
-          graph_2: [
-            { name: 'typeSemantique_2' },
-            { name: 'categorie_2' },
-            { name: 'construction_2' },
-            { name: 'typeConstruction_2' },
-          ],
-          relation: [
-            { name: 'complexite' },
-            { name: 'orientation' },
-            { name: 'definitionConcrete' },
-            { name: 'definitionAbstraite' },
-          ],
-        },
+        relationPhonologiqueAbstraite: 'relation phonologique abstraite',
+        seqCommRad1Rad_2: 'sequence commune des radicaux',
+        relationPhonologieConcrete: 'relation phonologie concrete',
+        st1: 'st',
+        st2: 'st',
       },
     };
   },
   methods: {
-    returnFormatRequest(sourceEntry) { return formatRequest(sourceEntry); },
+    returnFormatRequest(sourceEntry) { return formatPhoneticRequest(sourceEntry); },
   },
 };
 </script>

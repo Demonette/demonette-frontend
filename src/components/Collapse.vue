@@ -28,16 +28,20 @@
         <b-tab-item label="Graph">
           <graph ref="graph" :element="el._source" :selected="selected"/>
         </b-tab-item>
+        <b-tab-item label="Phonétique">
+          <phonetic-entry :parentEl="el"/>
+        </b-tab-item>
       </b-tabs>
     </b-collapse>
 </template>
 
 <script>
 import TableEntry from './TableEntry';
+import PhoneticEntry from './PhoneticEntry';
 import Graph from './Graph';
 
 export default {
-  components: { TableEntry, Graph },
+  components: { TableEntry, Graph, PhoneticEntry },
   name: 'collapse',
   props: ['el'],
   data() {
