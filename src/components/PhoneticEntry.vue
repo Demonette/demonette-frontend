@@ -1,8 +1,8 @@
 <template>
   <div class="columns container is-fluid">
     <div class="card-content column" v-for="(features, entity) in
-        returnFormatRequest(el._source)" :key="entity" v-if="empty(features)">
-      <table class="table is-bordered is-striped is-hoverable">
+        returnFormatRequest(el._source)" :key="entity">
+      <table class="table is-bordered is-striped is-hoverable" v-if="empty(features)">
         <h1 class="title is-size-6">
           {{el._source[entity] ? el._source[entity] : entity }}
         </h1>
@@ -27,6 +27,9 @@
         </tr>
         </tbody>
       </table>
+      <h1 class="title is-size-6 is-primary has-text-grey" v-else>
+        {{el._source[entity] ? el._source[entity] : entity }}
+      </h1>
     </div>
   </div>
 </template>
