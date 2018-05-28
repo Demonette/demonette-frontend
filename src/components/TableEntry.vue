@@ -44,6 +44,26 @@ export default {
         orientation: 'orientation',
         definitionConcrete: 'définition concrète',
         definitionAbstraite: 'définition abstraite',
+        tableFormat: {
+          graph_1: [
+            { name: 'typeSemantique_1' },
+            { name: 'categorie_1' },
+            { name: 'construction_1' },
+            { name: 'typeConstruction_1' },
+          ],
+          graph_2: [
+            { name: 'typeSemantique_2' },
+            { name: 'categorie_2' },
+            { name: 'construction_2' },
+            { name: 'typeConstruction_2' },
+          ],
+          relation: [
+            { name: 'complexite' },
+            { name: 'orientation' },
+            { name: 'definitionConcrete' },
+            { name: 'definitionAbstraite' },
+          ],
+        },
       },
     };
   },
