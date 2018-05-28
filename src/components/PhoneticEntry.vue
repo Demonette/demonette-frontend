@@ -2,7 +2,7 @@
   <div class="columns container is-fluid">
     <div class="card-content column" v-for="(features, entity) in
         returnFormatRequest(el._source)" :key="entity">
-      <table class="table is-bordered is-striped is-hoverable">
+      <table class="table is-bordered is-striped is-hoverable" v-if="empty(features)">
         <h1 class="title is-size-6">
           {{el._source[entity] ? el._source[entity] : entity }}
         </h1>
@@ -20,7 +20,7 @@
             <b-tooltip :label="f.origin" position="is-right" animated
                        :active="f.origin !== undefined">
               <ul>
-                <li v-for="ste in f.value.split(',')" :key="ste">{{ ste }}</li>
+                <li v-for="(ste, index) in f.value.split(',')" :key="index">{{ ste }}</li>
               </ul>
             </b-tooltip>
           </td>
@@ -60,6 +60,9 @@ export default {
   },
   methods: {
     returnFormatRequest(sourceEntry) { return formatPhoneticRequest(sourceEntry); },
+    empty(feature) {
+      return feature.reduce((acc, p) => 'value' in p);
+    },
   },
 };
 </script>
