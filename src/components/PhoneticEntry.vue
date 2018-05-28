@@ -10,10 +10,18 @@
         <tr v-for="(f, idx) in features" :key="idx"
             v-if="f.value && Object.keys(normLabel).includes(f.name)">
           <th>{{ normLabel[f.name] }}</th>
-          <td>
+          <td v-if="f.name !== 'st_2' && f.name !== 'st_1'">
             <b-tooltip :label="f.origin" position="is-right" animated
                        :active="f.origin !== undefined">
               {{ f.value }}
+            </b-tooltip>
+          </td>
+          <td v-else>
+            <b-tooltip :label="f.origin" position="is-right" animated
+                       :active="f.origin !== undefined">
+              <ul>
+                <li v-for="ste in f.value.split(',')" :key="ste">{{ ste }}</li>
+              </ul>
             </b-tooltip>
           </td>
         </tr>
@@ -45,8 +53,8 @@ export default {
         relationPhonologiqueAbstraite: 'relation phonologique abstraite',
         seqCommRad1Rad_2: 'sequence commune des radicaux',
         relationPhonologieConcrete: 'relation phonologie concrete',
-        st1: 'st',
-        st2: 'st',
+        st_1: 'st',
+        st_2: 'st',
       },
     };
   },
