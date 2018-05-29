@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { url } from '../../config/url-config';
+import formatAgg from './formatAggregations';
 
 export default function query(queryField, querySize, queryFrom) {
   return axios.get(`${url[process.env.NODE_ENV]}/search?token=${queryField}
@@ -8,5 +9,6 @@ export default function query(queryField, querySize, queryFrom) {
     .then(response => ({
       data: response.data.hits.hits,
       total: response.data.hits.total,
-      facet: response.data.aggregations }));
+      facet: formatAgg(response.data.aggregations) }));
 }
+
