@@ -1,51 +1,62 @@
 <template>
   <div class="search">
     <div class="columns">
-    <facet-search class="facet column is-2"
-                  :facetFilter="facetFilter"
-                  :queryField="queryField"
-                  :typeField="typeField"/>
-    <section class="column is-fluid">
-      <b-field label="Rechercher :">
-      <div class="dropdown is-active">
-        <b-input icon="fa fa-search"
-                 v-model="autoQuery"
-                 @focus="showMenu = true"
-                 placeholder="rechercher ...">
-        </b-input>
-          <auto-complete-drop-down v-if="autoQuery.length !== 0"
-             :autoQuery="autoQuery"
-            :showMenu="showMenu"
-            :dropDownField="dropDownField"
-            @clicked="autocomplete"/>
-      </div>
-      </b-field>
-      <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
-      <b-field grouped>
-        <div class="control" v-for="(t,idx) in queryField" :key="t">
-          <b-taglist attached>
-            <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
-            <b-tag @close="removeTag(idx)"
-                    closable>{{ t }}</b-tag>
-          </b-taglist>
+      <facet-search class="facet column is-2"
+                    :facetFilter="facetFilter"
+                    :queryField="queryField"
+                    :typeField="typeField"/>
+      <section class="column is-fluid">
+        <div class="field has-addons">
+          <div class="dropdown is-active">
+            <b-input icon="fa fa-search"
+                     v-model="autoQuery"
+                     @focus="showMenu = true"
+                     placeholder="rechercher ...">
+            </b-input>
+            <auto-complete-drop-down v-if="autoQuery.length !== 0"
+                                     :autoQuery="autoQuery"
+                                     :showMenu="showMenu"
+                                     :dropDownField="dropDownField"
+                                     @clicked="autocomplete"/>
+          </div>
+          <b-dropdown hoverable>
+            <button class="button is-primary" slot="trigger">
+              <span>sources</span>
+              <b-icon icon="fas fa-angle-down"></b-icon>
+            </button>
+            <b-dropdown-item v-for="e in this.queryField">
+              <div class="field">
+                <b-checkbox>{{ e }}</b-checkbox>
+              </div>
+            </b-dropdown-item>
+          </b-dropdown>
         </div>
-      </b-field>
-      </b-field>
-    <hr/>
-    <br/>
-    <div class="container is-fluid">
-      <div v-if="this.entry.length === 0">
-        <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
-      </div>
-      <div v-else-if="this.entry === '...'">
-        <p class="has-text-centered is-size-4">{{ this.entry }}</p>
-      </div>
-      <div v-else>
-        <collapse-group :entry="this.entry"/>
-      </div>
+        <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
+          <b-field grouped>
+            <div class="control" v-for="(t,idx) in queryField" :key="t">
+              <b-taglist attached>
+                <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
+                <b-tag @close="removeTag(idx)"
+                       closable>{{ t }}</b-tag>
+              </b-taglist>
+            </div>
+          </b-field>
+        </b-field>
+        <hr/>
+        <br/>
+        <div class="container is-fluid">
+          <div v-if="this.entry.length === 0">
+            <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
+          </div>
+          <div v-else-if="this.entry === '...'">
+            <p class="has-text-centered is-size-4">{{ this.entry }}</p>
+          </div>
+          <div v-else>
+            <collapse-group :entry="this.entry"/>
+          </div>
+        </div>
+      </section>
     </div>
-    </section>
-  </div>
     <div v-if="this.entry.length !== 0">
       <hr/>
       <b-field grouped class="container">
