@@ -28,6 +28,5 @@ export default function formatAgg(pAgg) {
       delete agg[el];
     }
   });
-  console.log(agg);
   return agg;
 }

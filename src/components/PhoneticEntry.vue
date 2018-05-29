@@ -64,7 +64,6 @@ export default {
   methods: {
     returnFormatRequest(sourceEntry) { return formatPhoneticRequest(sourceEntry); },
     empty(feature) {
-      console.log(feature);
       return feature.reduce((acc, p) => 'value' in p && p.value !== '');
     },
   },
