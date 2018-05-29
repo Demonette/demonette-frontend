@@ -24,10 +24,11 @@
               <span>sources</span>
               <b-icon icon="fas fa-angle-down"></b-icon>
             </button>
-            <b-dropdown-item v-for="e in this.queryField">
-              <div class="field">
-                <b-checkbox>{{ e }}</b-checkbox>
-              </div>
+            <b-dropdown-item v-for="o in origin"
+                          :key="o">
+                <div class="field">
+                  <b-checkbox v-model="originFilter" :native-value="o">{{ o }}</b-checkbox>
+                </div>
             </b-dropdown-item>
           </b-dropdown>
         </div>
@@ -112,6 +113,8 @@ export default {
       total: 0,
       dropDownField: {},
       facetFilter: {},
+      originFilter: [],
+      origin: [],
     };
   },
   watch: {
@@ -145,6 +148,8 @@ export default {
           this.entry = res.data;
           this.total = res.total;
           this.facetFilter = res.facet;
+          this.originFilter = res.facet.origineCouple.buckets.map(el => el.key);
+          this.origin = res.facet.origineCouple.buckets.map(el => el.key);
         });
     },
     debounceAutocomplete: _.debounce(function () {

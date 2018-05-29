@@ -1,7 +1,9 @@
 <template>
   <aside class="menu">
     <ul class="menu-list" v-for="(v, k) in facetFilter"
-        v-if="facetFilter[`count-${k}`] !== 0 && !(k.includes('count-'))" v-bind:key="k">
+        v-if="facetFilter[`count-${k}`] !== 0
+        && !(k.includes('count-'))
+        && !(k.includes('origineCouple'))" v-bind:key="k">
         <facet-elements
           :queryField="queryField"
           :typeField="typeField"
