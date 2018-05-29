@@ -36,7 +36,7 @@ export default {
     addTag(k, el) {
       if (!this.queryField.includes(el)) {
         this.queryField.push(el);
-        this.typeField.push(k.slice(0, -2));
+        this.typeField.push(k);
       } else {
         this.queryField.splice(this.queryField.indexOf(el), 1);
         this.typeField.splice(this.queryField.indexOf(el), 1);

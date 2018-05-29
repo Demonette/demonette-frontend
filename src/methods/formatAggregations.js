@@ -24,9 +24,10 @@ export default function formatAgg(pAgg) {
         agg[newName].value += agg[el].value;
       } else {
         addNewKeyToAgg(newName, el);
-        delete agg[el];
       }
+      delete agg[el];
     }
   });
+  console.log(agg);
   return agg;
 }
