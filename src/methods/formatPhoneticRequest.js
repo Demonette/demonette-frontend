@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-syntax,guard-for-in */
 import sampaApiConverter from './sampaApiConverter';
+import capitalize from './capitalize';
 
 export default function formatRequest(entryResult) {
   const st1 = { name: 'st_1', value: '' };
@@ -37,7 +38,7 @@ export default function formatRequest(entryResult) {
       const feature = res[entity][index].name;
       if (entryResult[feature]) {
         res[entity][index].value = sampaApiConverter(entryResult[feature]);
-        const origin = `origine${feature}`;
+        const origin = `orgine${capitalize(feature)}`;
         if (entryResult[origin]) {
           res[entity][index].origin = entryResult[origin];
         }
