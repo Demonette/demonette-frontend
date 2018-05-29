@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { url } from '../../config/url-config';
+import formatAgg from './formatAggregations';
 
 export default function autocomplete(querySize, queryFrom) {
   return axios.get(
@@ -7,5 +8,6 @@ export default function autocomplete(querySize, queryFrom) {
     .then(response => ({
       data: response.data.hits.hits,
       total: response.data.hits.total,
-      facet: response.data.aggregations }));
+      facet: formatAgg(response.data.aggregations),
+    }));
 }
