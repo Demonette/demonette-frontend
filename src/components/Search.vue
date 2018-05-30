@@ -90,6 +90,7 @@ import _ from 'lodash';
 import checkQueryField from '../methods/checkQueryField';
 import CollapseGroup from './CollapseGroup';
 import autocomplete from '../methods/autocomplete';
+import source from '../methods/sourceRequest';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
 import FacetSearch from './FacetSearch';
 
@@ -137,19 +138,25 @@ export default {
     querySize() {
       this.request();
     },
+    originFilter() {
+      this.request();
+    },
   },
   created() {
     this.request();
+    source().then((res) => {
+      this.originFilter = res.data.aggregations.origin.buckets.map(el => el.key);
+      this.origin = res.data.aggregations.origin.buckets.map(el => el.key);
+    });
   },
   methods: {
     request() {
-      checkQueryField(this.queryField, this.querySize, ((this.queryFrom - 1) * this.querySize))
+      checkQueryField(this.queryField,
+        this.querySize, ((this.queryFrom - 1) * this.querySize), this.originFilter)
         .then((res) => {
           this.entry = res.data;
           this.total = res.total;
           this.facetFilter = res.facet;
-          this.originFilter = res.facet.origineCouple.buckets.map(el => el.key);
-          this.origin = res.facet.origineCouple.buckets.map(el => el.key);
         });
     },
     debounceAutocomplete: _.debounce(function () {
