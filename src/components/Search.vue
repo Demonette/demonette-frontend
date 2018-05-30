@@ -44,7 +44,6 @@
           </b-field>
         </b-field>
         <hr/>
-        <br/>
         <div class="container is-fluid">
           <div v-if="this.entry.length === 0">
             <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
@@ -56,32 +55,31 @@
             <collapse-group :entry="this.entry"/>
           </div>
         </div>
+        <div v-if="this.entry.length !== 0">
+          <hr/>
+          <b-field grouped class="container">
+            <b-field>
+              <b-pagination
+                :total=" total > 9900 ? 9900 : total"
+                :current.sync="queryFrom"
+                :per-page="querySize"
+                :simple="false"
+                size="is-small"></b-pagination>
+            </b-field>
+            <b-field>
+              <p>Résultats par page: </p>
+            </b-field>
+            <b-field>
+              <b-select v-model="querySize" size="is-small">
+                <option selected value="5">5</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </b-select>
+            </b-field>
+          </b-field>
+        </div>
       </section>
-    </div>
-    <div v-if="this.entry.length !== 0">
-      <hr/>
-      <b-field grouped class="container">
-        <b-field>
-          <b-pagination
-            :total=" total > 9900 ? 9900 : total"
-            :current.sync="queryFrom"
-            :per-page="querySize"
-            :simple="false"
-            size="is-small">
-          </b-pagination>
-        </b-field>
-        <b-field>
-          <p>Résultats par page: </p>
-        </b-field>
-        <b-field>
-          <b-select v-model="querySize" size="is-small">
-            <option selected value="5">5</option>
-            <option value="15">15</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-          </b-select>
-        </b-field>
-      </b-field>
     </div>
   </div>
 </template>

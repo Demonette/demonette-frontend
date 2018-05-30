@@ -1,16 +1,14 @@
 <template>
     <b-collapse class="box" :key="el._id" :open="isImageModalActive" @open="open()">
       <div slot="trigger" slot-scope="props">
-        <p class="is-size-5">
-            <strong>{{el._source.graph_1}}</strong> ·
-            {{el._source.categorie_1}} · {{el._source.typeSemantique_1}} /
-            <strong>{{el._source.graph_2}}</strong> ·
-            {{el._source.categorie_2}} · {{el._source.typeSemantique_2}}
-          <br/>
-          <small><i>ressource : {{el._source.origineCouple}}</i></small>
-        </p>
-        <br/>
-        <nav class="level is-mobile">
+          <b-tooltip :label="`source: ${el._source.origineCouple}`" position="is-right" animated>
+            <p class="is-size-6">
+              <strong>{{el._source.graph_1}}</strong> ·
+              {{el._source.categorie_1}} · {{el._source.typeSemantique_1}} /
+              <strong>{{el._source.graph_2}}</strong> ·
+              {{el._source.categorie_2}} · {{el._source.typeSemantique_2}}
+            </p>
+          </b-tooltip>
           <div class="level-left">
             <a class="level-item">
                   <span class="icon is-small"
@@ -19,7 +17,6 @@
                   </span>
             </a>
           </div>
-        </nav>
       </div>
       <b-tabs>
         <b-tab-item label="Table">
@@ -57,3 +54,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .box {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 10px;
+  }
+</style>
