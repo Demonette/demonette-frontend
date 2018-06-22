@@ -5,7 +5,7 @@ services:
 
 variables:
   GIT_SSL_NO_VERIFY: "true"
-  IMAGE_NAME: $REGISTRY_HOST/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
+  IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
 
 stages:
   - build
@@ -14,5 +14,9 @@ docker_build:
   stage: build
   script:
     - docker build -t $IMAGE_NAME .
-    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD $REGISTRY_HOST
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker push $IMAGE_NAME
+  only:
+    - master
+    - develop
+    - tags
