@@ -140,7 +140,7 @@ export default {
       this.request();
     },
   },
-  created() {
+  beforeMount() {
     this.request();
     source().then((res) => {
       this.originFilter = res.data.aggregations.origin.buckets.map(el => el.key);
