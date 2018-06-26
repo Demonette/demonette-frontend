@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div :key="entry">
+    <div :key="entry[0]._id">
       <collapse v-for="el in entry" :el="el" v-bind:key="el._id"/>
     </div>
   </transition>
