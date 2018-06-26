@@ -15,7 +15,11 @@
         <li @click="addTag(facetKey, getSource(i))"
             v-for="i in facetValue.buckets"
             v-bind:key="getSource(i)">
-          <a :class="{'is-active': queryField.includes(getSource(i))}">
+          <a :class="{'is-active': queryField.includes(getSource(i))}"
+             v-if="facetKey === 'relationPhonologiqueAbstraite'">
+            {{ cSampaApiConverter(getSource(i)) }} ({{ i.doc_count }})
+          </a>
+          <a :class="{'is-active': queryField.includes(getSource(i))}" v-else>
             {{ getSource(i) }} ({{ i.doc_count }})
           </a>
         </li>
@@ -25,6 +29,8 @@
 </template>
 
 <script>
+import sampaApiConverter from '../methods/sampaApiConverter';
+
 export default {
   name: 'facet-elements',
   props: ['queryField', 'typeField', 'facetValue', 'facetKey', 'facetFilter'],
@@ -39,6 +45,8 @@ export default {
         typeConstruction: 'Type de construction',
         typeSemantique: 'Type sémantique',
         graph: 'Graphie',
+        definitionAbstraite: 'Définition abstraite',
+        relationPhonologiqueAbstraite: 'Relation Phonologique Abstraite',
       },
     };
   },
@@ -51,6 +59,9 @@ export default {
         this.queryField.splice(this.queryField.indexOf(el), 1);
         this.typeField.splice(this.queryField.indexOf(el), 1);
       }
+    },
+    cSampaApiConverter(word) {
+      return sampaApiConverter(word);
     },
     getSource(value) {
       // eslint-disable-next-line no-underscore-dangle
