@@ -1,7 +1,8 @@
 <template>
   <li>
     <a @click="toggle()">
-      <strong>{{ facetKey }}</strong> ({{ facetFilter[`count-${facetKey}`].value }})
+      <strong>{{ normalizedTypeField[facetKey] }}</strong>
+      ({{ facetFilter[`count-${facetKey}`].value }})
       <span v-show="isActive">
         <i class="fas fa-angle-up"></i>
       </span>
@@ -30,13 +31,22 @@ export default {
   data() {
     return {
       isActive: false,
+      normalizedTypeField: {
+        orientation: 'Orientation',
+        complexite: 'Compléxite',
+        categorie: 'Catégorie',
+        construction: 'Construction',
+        typeConstruction: 'Type de construction',
+        typeSemantique: 'Type sémantique',
+        graph: 'Graphie',
+      },
     };
   },
   methods: {
     addTag(k, el) {
       if (!this.queryField.includes(el)) {
         this.queryField.push(el);
-        this.typeField.push(k);
+        this.typeField.push(this.normalizedTypeField[k]);
       } else {
         this.queryField.splice(this.queryField.indexOf(el), 1);
         this.typeField.splice(this.queryField.indexOf(el), 1);
