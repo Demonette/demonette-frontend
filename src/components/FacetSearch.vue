@@ -6,6 +6,7 @@
         && !(k.includes('origineCouple'))" v-bind:key="k">
         <facet-elements
           :queryField="queryField"
+          :valueField="valueField"
           :typeField="typeField"
           :facetFilter="facetFilter"
           :facetValue="v"
@@ -22,6 +23,6 @@ export default {
     FacetElements,
   },
   name: 'facet-search',
-  props: ['facetFilter', 'queryField', 'typeField'],
+  props: ['facetFilter', 'queryField', 'typeField', 'valueField'],
 };
 </script>

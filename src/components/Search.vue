@@ -4,6 +4,7 @@
       <facet-search class="facet column is-2"
                     :facetFilter="facetFilter"
                     :queryField="queryField"
+                    :valueField="valueField"
                     :typeField="typeField"/>
       <section class="column is-fluid">
         <div class="field has-addons">
@@ -34,7 +35,7 @@
         </div>
         <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
           <b-field grouped>
-            <div class="control" v-for="(t,idx) in queryField" :key="t">
+            <div class="control" v-for="(t,idx) in valueField" :key="t">
               <b-taglist attached>
                 <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
                 <b-tag @close="removeTag(idx)"
@@ -105,6 +106,7 @@ export default {
       entry: '',
       typeField: [],
       queryField: [],
+      valueField: [],
       filteredTags: [],
       showMenu: false,
       querySize: 5,
@@ -165,6 +167,7 @@ export default {
     }, 100),
     autocomplete(el, key) {
       this.queryField.push(el);
+      this.valueField.push(el);
       this.typeField.push(key);
       this.showMenu = false;
       this.autoQuery = '';
@@ -173,6 +176,7 @@ export default {
     removeTag(index) {
       this.queryField.splice(index, 1);
       this.typeField.splice(index, 1);
+      this.valueField.splice(index, 1);
     },
   },
 };

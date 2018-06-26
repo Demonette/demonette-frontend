@@ -33,7 +33,7 @@ import sampaApiConverter from '../methods/sampaApiConverter';
 
 export default {
   name: 'facet-elements',
-  props: ['queryField', 'typeField', 'facetValue', 'facetKey', 'facetFilter'],
+  props: ['queryField', 'typeField', 'facetValue', 'facetKey', 'facetFilter', 'valueField'],
   data() {
     return {
       isActive: false,
@@ -54,9 +54,11 @@ export default {
     addTag(k, el) {
       if (!this.queryField.includes(el)) {
         this.queryField.push(el);
+        this.valueField.push(this.cSampaApiConverter(el));
         this.typeField.push(this.normalizedTypeField[k]);
       } else {
         this.queryField.splice(this.queryField.indexOf(el), 1);
+        this.valueField.splice(this.queryField.indexOf(el), 1);
         this.typeField.splice(this.queryField.indexOf(el), 1);
       }
     },
