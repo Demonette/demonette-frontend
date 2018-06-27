@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header class="navbar is-primary">
+    <nav class="navbar is-primary">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://www.ortolang.fr/market/lexicons/demonette" target="_blank">
           Démonette
@@ -24,12 +24,12 @@
           </router-link>
         </div>
       </div>
-    </header>
+    </nav>
     <br/>
-    <transition name="fade" mode="out-in">
-      <router-view/>
-    </transition>
-  </div>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
+    </div>
 </template>
 
 <script>

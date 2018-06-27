@@ -43,7 +43,6 @@
               </b-taglist>
             </div>
           </b-field>
-        </b-field>
         <div>
           <div v-if="this.entry.length === 0">
             <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
@@ -179,8 +178,8 @@ export default {
 </script>
 <style scoped>
   .facet {
-    max-height: 83.5vh;
-    overflow: auto;
+    max-height: 87vh;
+    overflow-y: auto;
   }
   .divider {
     width: 1px;
@@ -191,13 +190,13 @@ export default {
     background-color: white;
     position: fixed;
     width: 100%;
-    height: 20%;
-    bottom: -11vh;
+    bottom: -9vh;
+    padding-top: 1vh;
   }
   .collapse {
     height: 100%;
     overflow-y: auto;
-    max-height: 44em;
+    max-height: 77vh;
   }
   .label{
     margin-left: 0.5vh;
