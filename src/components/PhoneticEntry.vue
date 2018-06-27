@@ -8,8 +8,8 @@
         </h1>
         <tbody>
         <tr v-for="(f, idx) in features" :key="idx"
-            v-if="f.value && Object.keys(normLabel).includes(f.name)">
-          <th>{{ normLabel[f.name] }}</th>
+            v-if="f.value && Object.keys(nF).includes(f.name)">
+          <th>{{ nF[f.name] }}</th>
           <td v-if="f.name !== 'st_2' && f.name !== 'st_1'">
             <b-tooltip :label="f.origin" position="is-right" animated
                        :active="f.origin !== undefined">
@@ -36,6 +36,7 @@
 
 <script>
 import formatPhoneticRequest from '../methods/formatPhoneticRequest';
+import normalizedFields from '../methods/normalizedFields';
 
 export default {
   name: 'table-entry',
@@ -43,22 +44,7 @@ export default {
   data() {
     return {
       el: this.parentEl,
-      normLabel: {
-        constructionPhonologique_1: 'Construction phonologique',
-        rad: 'Radicale',
-        construction_1: 'Construction',
-        typeConstruction_1: 'Type de construction',
-        constructionPhonologique_2: 'Construction phonologique',
-        rad_2: 'Radicale',
-        construction_2: 'Construction',
-        typeConstruction_2: 'Type de construction',
-        complexite: 'Complexité',
-        relationPhonologiqueAbstraite: 'Relation phonologique abstraite',
-        seqCommRad1Rad_2: 'Séquence commune des radicaux',
-        relationPhonologieConcrete: 'Relation phonologie concrète',
-        st_1: 'St',
-        st_2: 'St',
-      },
+      nF: normalizedFields,
     };
   },
   methods: {
