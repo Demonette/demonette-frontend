@@ -6,7 +6,8 @@
                     :queryField="queryField"
                     :valueField="valueField"
                     :typeField="typeField"/>
-      <section class="column is-fluid">
+      <div class="divider is-fluid"></div>
+      <section class="column is-fluid searchbar">
         <div class="field has-addons">
           <div class="dropdown is-active">
             <b-input icon="fa fa-search"
@@ -33,10 +34,9 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <b-field v-if="queryField.length !== 0" label="Filtres utilisés pour la recherche :">
-          <b-field grouped>
+          <b-field grouped label="Filtre(s) :" class="filter" :v-show="queryField.length !== 0">
             <div class="control" v-for="(t,idx) in valueField" :key="t">
-              <b-taglist attached>
+              <b-taglist attached class="label">
                 <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
                 <b-tag @close="removeTag(idx)"
                        closable>{{ t }}</b-tag>
@@ -44,8 +44,7 @@
             </div>
           </b-field>
         </b-field>
-        <hr/>
-        <div class="container is-fluid">
+        <div>
           <div v-if="this.entry.length === 0">
             <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
           </div>
@@ -53,35 +52,32 @@
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
           <div v-else>
-            <collapse-group :entry="this.entry"/>
+            <collapse-group class='collapse' :entry="this.entry"/>
           </div>
-        </div>
-        <div v-if="this.entry.length !== 0">
-          <hr/>
-          <b-field grouped class="container">
-            <b-field>
-              <b-pagination
-                :total=" total > 9900 ? 9900 : total"
-                :current.sync="queryFrom"
-                :per-page="querySize"
-                :simple="false"
-                size="is-small"></b-pagination>
-            </b-field>
-            <b-field>
-              <p>Résultats par page: </p>
-            </b-field>
-            <b-field>
-              <b-select v-model="querySize" size="is-small">
-                <option selected value="5">5</option>
-                <option value="15">15</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-              </b-select>
-            </b-field>
-          </b-field>
         </div>
       </section>
     </div>
+      <b-field class="footer" grouped v-if="this.entry.length !== 0">
+        <b-field>
+          <b-pagination
+            :total=" total > 9900 ? 9900 : total"
+            :current.sync="queryFrom"
+            :per-page="querySize"
+            :simple="false"
+            size="is-small"></b-pagination>
+        </b-field>
+        <b-field>
+          <p>Résultats par page: </p>
+        </b-field>
+        <b-field>
+          <b-select v-model="querySize" size="is-small">
+            <option selected value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </b-select>
+        </b-field>
+      </b-field>
   </div>
 </template>
 <script>
@@ -109,7 +105,7 @@ export default {
       valueField: [],
       filteredTags: [],
       showMenu: false,
-      querySize: 5,
+      querySize: 15,
       queryFrom: 1,
       total: 0,
       dropDownField: {},
@@ -183,7 +179,30 @@ export default {
 </script>
 <style scoped>
   .facet {
-    max-height: 93vh;
+    max-height: 83.5vh;
+    overflow: auto;
+  }
+  .divider {
+    width: 1px;
+    background: black;
+    opacity: 0.10;
+  }
+  .footer {
+    background-color: white;
+    position: fixed;
+    width: 100%;
+    height: 20%;
+    bottom: -11vh;
+  }
+  .collapse {
+    height: 100%;
     overflow-y: auto;
+    max-height: 44em;
+  }
+  .label{
+    margin-left: 0.5vh;
+  }
+  .searchbar {
+    margin-bottom: 10vh;
   }
 </style>

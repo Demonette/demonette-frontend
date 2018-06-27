@@ -7,10 +7,10 @@
             <p class="menu-label">
               {{ nF[k] }} ({{ v.length }})
             </p>
-            <ul class="menu-list" >
+            <ul class="menu-list">
               <li v-for="el in v" v-bind:key="el">
                 <a v-on:click="onClick(el,k)">
-                      <b>{{ el.slice(0, autoQuery.length) }}</b>{{ el.slice(autoQuery.length)}}
+                  <b>{{ el.slice(0, autoQuery.length) }}</b>{{ el.slice(autoQuery.length)}}
                 </a>
               </li>
             </ul>

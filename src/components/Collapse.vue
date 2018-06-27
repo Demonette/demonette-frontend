@@ -59,5 +59,8 @@ export default {
     padding-top: 1%;
     padding-bottom: 1%;
     margin-bottom: 10px;
+    margin-left: 1px;
+    margin-top: 1px;
+    width: 99%;
   }
 </style>
