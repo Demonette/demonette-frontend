@@ -45,8 +45,12 @@ export default {
     addTag(k, el) {
       if (!this.queryField.includes(el)) {
         this.queryField.push(el);
-        this.valueField.push(this.cSampaApiConverter(el));
-        this.typeField.push(this.normalizedTypeField[k]);
+        if (k === 'relationPhonologiqueAbstraite') {
+          this.valueField.push(this.cSampaApiConverter(el));
+        } else {
+          this.valueField.push(el);
+        }
+        this.typeField.push(this.nF[k]);
       } else {
         this.queryField.splice(this.queryField.indexOf(el), 1);
         this.valueField.splice(this.queryField.indexOf(el), 1);
