@@ -1,7 +1,7 @@
 <template>
   <li>
     <a @click="toggle()">
-      <strong>{{ normalizedTypeField[facetKey] }}</strong>
+      <strong>{{ nF[facetKey] }}</strong>
       ({{ facetFilter[`count-${facetKey}`].value }})
       <span v-show="isActive">
         <i class="fas fa-angle-up"></i>
@@ -30,6 +30,7 @@
 
 <script>
 import sampaApiConverter from '../methods/sampaApiConverter';
+import normalizedFields from '../methods/normalizedFields';
 
 export default {
   name: 'facet-elements',
@@ -37,17 +38,7 @@ export default {
   data() {
     return {
       isActive: false,
-      normalizedTypeField: {
-        orientation: 'Orientation',
-        complexite: 'Compléxite',
-        categorie: 'Catégorie',
-        construction: 'Construction',
-        typeConstruction: 'Type de construction',
-        typeSemantique: 'Type sémantique',
-        graph: 'Graphie',
-        definitionAbstraite: 'Définition abstraite',
-        relationPhonologiqueAbstraite: 'Relation Phonologique Abstraite',
-      },
+      nF: normalizedFields,
     };
   },
   methods: {
