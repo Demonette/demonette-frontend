@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="columns">
-      <facet-search class="facet column is-2"
+      <facet-search class="column is-2"
                     :facetFilter="facetFilter"
                     :queryField="queryField"
                     :valueField="valueField"
@@ -51,7 +51,9 @@
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
           <div v-else>
-            <collapse-group class='collapse' :entry="this.entry"/>
+            <VuePerfectScrollbar :settings="settings">
+              <collapse-group class="collapse-group" :entry="this.entry"/>
+            </VuePerfectScrollbar>
           </div>
         </div>
       </section>
@@ -81,6 +83,7 @@
 </template>
 <script>
 import _ from 'lodash';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import checkQueryField from '../methods/checkQueryField';
 import CollapseGroup from './CollapseGroup';
 import autocomplete from '../methods/autocomplete';
@@ -93,6 +96,7 @@ export default {
     FacetSearch,
     AutoCompleteDropDown,
     CollapseGroup,
+    VuePerfectScrollbar,
   },
   name: 'Search',
   data() {
@@ -177,10 +181,6 @@ export default {
 };
 </script>
 <style scoped>
-  .facet {
-    max-height: 87vh;
-    overflow-y: auto;
-  }
   .divider {
     width: 1px;
     background: black;
@@ -193,15 +193,16 @@ export default {
     bottom: -9vh;
     padding-top: 1vh;
   }
-  .collapse {
-    height: 100%;
-    overflow-y: auto;
-    max-height: 77vh;
-  }
   .label{
     margin-left: 0.5vh;
   }
   .searchbar {
     margin-bottom: 10vh;
+  }
+  .collapse-group {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: 75vh;
   }
 </style>
