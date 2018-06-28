@@ -51,7 +51,7 @@
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
           <div v-else>
-            <VuePerfectScrollbar :settings="settings">
+            <VuePerfectScrollbar ref='ps' :settings="settings">
               <collapse-group class="collapse-group" :entry="this.entry"/>
             </VuePerfectScrollbar>
           </div>
@@ -115,12 +115,18 @@ export default {
       facetFilter: {},
       originFilter: [],
       origin: [],
+      settings: {
+        maxScrollbarLength: 60,
+      },
     };
   },
   watch: {
     queryField() {
       this.queryFrom = 1;
       this.request();
+      const ps = this.$refs.ps;
+      ps.$el.scrollTop = 0;
+      ps.update();
     },
     autoQuery() {
       if (this.autoQuery !== '') {

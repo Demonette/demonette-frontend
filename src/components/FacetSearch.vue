@@ -29,6 +29,13 @@ export default {
   },
   name: 'facet-search',
   props: ['facetFilter', 'queryField', 'typeField', 'valueField'],
+  data() {
+    return {
+      settings: {
+        maxScrollbarLength: 60,
+      },
+    };
+  },
 };
 </script>
 <style>
