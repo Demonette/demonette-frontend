@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-syntax,guard-for-in */
 import capitalize from './capitalize';
-import sampaApiConverter from './sampaApiConverter';
 
 export default function formatRequest(entryResult) {
   const res = {
