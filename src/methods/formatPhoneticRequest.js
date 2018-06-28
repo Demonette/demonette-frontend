@@ -42,8 +42,6 @@ export default function formatRequest(entryResult) {
         if (entryResult[origin]) {
           res[entity][index].origin = entryResult[origin];
         }
-      } else {
-        delete res[entity].splice(index, index);
       }
     }
   }

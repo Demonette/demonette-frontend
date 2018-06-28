@@ -7,7 +7,8 @@
           {{el._source[entity] ? el._source[entity] : entity }}
         </h1>
         <tbody>
-        <tr v-for="(f, idx) in features" :key="idx">
+        <tr v-for="(f, idx) in features" :key="idx"
+            v-if="f.value && Object.keys(nF).includes(f.name)">
           <th>{{ nF[f.name] }}</th>
           <td>
             <b-tooltip :label="f.origin" position="is-right" animated
