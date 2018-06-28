@@ -38,7 +38,7 @@ export default function formatRequest(entryResult) {
       const feature = res[entity][index].name;
       if (entryResult[feature]) {
         res[entity][index].value = sampaApiConverter(entryResult[feature]);
-        const origin = `orgine${capitalize(feature)}`;
+        const origin = `origine${capitalize(feature)}`;
         if (entryResult[origin]) {
           res[entity][index].origin = entryResult[origin];
         }
