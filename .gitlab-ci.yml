@@ -5,10 +5,12 @@ services:
 
 variables:
   GIT_SSL_NO_VERIFY: "true"
+  STACK_NAME: $CI_PROJECT_NAME-int
   IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_NAME
 
 stages:
   - build
+  - deploy
 
 docker_build:
   stage: build
@@ -20,3 +22,28 @@ docker_build:
     - master
     - develop
     - tags
+
+deploy_int:
+  image: ubuntu
+  stage: deploy
+  only: 
+    - develop
+  environment:
+    name: int
+  tags:
+    - atilf-docker
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $DEV_HOST >> ~/.ssh/known_hosts
+    - scp docker-stack.int.yml $SSH_USERNAME@$DEV_HOST:/tmp/docker-stack-$STACK_NAME.yml
+  script:
+    - >
+      ssh $SSH_USERNAME@$DEV_HOST "
+      docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY;
+      docker stack deploy --with-registry-auth --resolve-image always -c /tmp/docker-stack-$STACK_NAME.yml $STACK_NAME"
+  after_script:
+    - rm -f /tmp/docker-stack-$STACK_NAME.yml

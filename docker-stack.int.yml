@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  demonette-frontend:
+    image: registry2.atilf.fr/demonette/demonette-frontend:develop
+    deploy:
+      labels:
+        com.df.notify: "true"
+        com.df.port: "80"
+        com.df.reqMode: "http"
+        com.df.serviceDomain: "demonette-int.atilf.fr"
+        com.df.srcPort: "80"
+    environment:
+      - "PRODUCTION_URL=http://demonette-int.atilf.fr/api/v1/demonette"
+    networks:
+      - demonette-int-network
+      - proxy
+
+networks:
+  demonette-int-network:
+  proxy:
+    external: true
