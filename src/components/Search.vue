@@ -34,9 +34,9 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-          <b-field grouped label="Filtre(s) :" class="filter" :v-show="queryField.length !== 0">
+          <b-field grouped label="Filtre(s):" :v-show="queryField.length !== 0"> &nbsp;
             <div class="control" v-for="(t,idx) in valueField" :key="t">
-              <b-taglist attached class="label">
+              <b-taglist attached>
                 <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
                 <b-tag @close="removeTag(idx)"
                        closable>{{ t }}</b-tag>
@@ -198,9 +198,6 @@ export default {
     width: 100%;
     bottom: -9vh;
     padding-top: 1vh;
-  }
-  .label{
-    margin-left: 0.5vh;
   }
   .searchbar {
     margin-bottom: 10vh;
