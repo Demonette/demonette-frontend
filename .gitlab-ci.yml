@@ -30,6 +30,7 @@ deploy_int:
     - develop
   environment:
     name: int
+    url: http://demonette-int.atilf.fr
   tags:
     - atilf-docker
   before_script:
@@ -43,7 +44,8 @@ deploy_int:
   script:
     - >
       ssh $SSH_USERNAME@$DEV_HOST "
-      docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY;
-      docker stack deploy --with-registry-auth --resolve-image always -c /tmp/docker-stack-$STACK_NAME.yml $STACK_NAME"
-  after_script:
-    - rm -f /tmp/docker-stack-$STACK_NAME.yml
+      docker logout $CI_REGISTRY ;
+      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $CI_REGISTRY;
+      docker stack deploy --with-registry-auth --resolve-image always -c /tmp/docker-stack-$STACK_NAME.yml $STACK_NAME ;
+      docker logout $CI_REGISTRY ;
+      rm -f /tmp/docker-stack-$STACK_NAME.yml"

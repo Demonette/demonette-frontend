@@ -11,11 +11,8 @@ services:
         com.df.srcPort: "80"
     environment:
       - "PRODUCTION_URL=http://demonette-int.atilf.fr/api/v1/demonette"
-    networks:
-      - demonette-int-network
       - proxy
 
 networks:
-  demonette-int-network:
   proxy:
     external: true
