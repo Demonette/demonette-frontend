@@ -1,6 +1,6 @@
 <template>
   <aside class="menu">
-    <VuePerfectScrollbar class="collapse-group" :settings="settings">
+    <VuePerfectScrollbar class="facet" ref="ps" :settings="settings">
       <ul class="menu-list" v-for="(v, k) in facetFilter"
           v-if="facetFilter[`count-${k}`] !== 0
         && !(k.includes('count-'))
@@ -15,7 +15,6 @@
       </ul>
     </VuePerfectScrollbar>
   </aside>
-
 </template>
 
 <script>
@@ -39,10 +38,10 @@ export default {
 };
 </script>
 <style>
-  .collapse-group {
+  .facet {
     position: relative;
     margin: auto;
     width: 100%;
-    height: 85vh;
+    height: 85%;
   }
 </style>

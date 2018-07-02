@@ -8,7 +8,7 @@
                     :typeField="typeField"/>
       <div class="divider is-fluid"></div>
       <section class="column is-fluid searchbar">
-        <div class="field has-addons">
+        <div class="is-fluid">
           <div class="dropdown is-active">
             <b-input icon="fa fa-search"
                      v-model="autoQuery"
@@ -33,8 +33,27 @@
                 </div>
             </b-dropdown-item>
           </b-dropdown>
+        <div class="is-pulled-right pagination-content">
+          <b-field grouped>
+          <b-pagination
+            :total=" total > 9900 ? 9900 : total"
+            :current.sync="queryFrom"
+            :per-page="querySize"
+            :simple="false"
+            size="is-small">
+          </b-pagination>
+            <p>&nbsp; Résultats par page: &nbsp;</p>
+            <b-select v-model="querySize" size="is-small">
+              <option selected value="15">15</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </b-select>
+          </b-field>
         </div>
-          <b-field grouped label="Filtre(s):" :v-show="queryField.length !== 0"> &nbsp;
+        </div>
+        <br/>
+        <b-field grouped label="Filtre(s):" :v-show="queryField.length !== 0"> &nbsp;
             <div class="control" v-for="(t,idx) in valueField" :key="t">
               <b-taglist attached>
                 <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
@@ -58,27 +77,6 @@
         </div>
       </section>
     </div>
-      <b-field class="footer" grouped v-if="this.entry.length !== 0">
-        <b-field>
-          <b-pagination
-            :total=" total > 9900 ? 9900 : total"
-            :current.sync="queryFrom"
-            :per-page="querySize"
-            :simple="false"
-            size="is-small"></b-pagination>
-        </b-field>
-        <b-field>
-          <p>Résultats par page: </p>
-        </b-field>
-        <b-field>
-          <b-select v-model="querySize" size="is-small">
-            <option selected value="15">15</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </b-select>
-        </b-field>
-      </b-field>
   </div>
 </template>
 <script>
@@ -192,20 +190,14 @@ export default {
     background: black;
     opacity: 0.10;
   }
-  .footer {
-    background-color: white;
-    position: fixed;
-    width: 100%;
-    bottom: -9vh;
-    padding-top: 1vh;
-  }
-  .searchbar {
-    margin-bottom: 10vh;
-  }
   .collapse-group {
     position: relative;
     margin: auto;
     width: 100%;
-    height: 75vh;
+    max-height: 80vh;
+    flex: 1;
+  }
+  .pagination-content{
+    margin-right: 1%;
   }
 </style>
