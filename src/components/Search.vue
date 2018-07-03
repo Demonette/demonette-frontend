@@ -62,19 +62,15 @@
               </b-taglist>
             </div>
           </b-field>
-        <div>
           <div v-if="this.entry.length === 0">
             <p class="has-text-centered is-size-5">aucun résultat pour la recherche courante ...</p>
           </div>
           <div v-else-if="this.entry === '...'">
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
-          <div v-else>
-            <VuePerfectScrollbar ref='ps' :settings="settings">
-              <collapse-group class="collapse-group" :entry="this.entry"/>
-            </VuePerfectScrollbar>
-          </div>
-        </div>
+          <VuePerfectScrollbar ref='ps' :settings="settings" v-else>
+            <collapse-group class="collapse-group" :entry="this.entry"/>
+          </VuePerfectScrollbar>
       </section>
     </div>
   </div>
@@ -189,13 +185,12 @@ export default {
     width: 1px;
     background: black;
     opacity: 0.10;
+    min-height: 100vh;
   }
   .collapse-group {
     position: relative;
-    margin: auto;
     width: 100%;
     max-height: 80vh;
-    flex: 1;
   }
   .pagination-content{
     margin-right: 1%;
