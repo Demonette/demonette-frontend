@@ -68,9 +68,11 @@
           <div v-else-if="this.entry === '...'">
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
-          <VuePerfectScrollbar ref='ps' :settings="settings" v-else>
-            <collapse-group class="collapse-group" :entry="this.entry"/>
-          </VuePerfectScrollbar>
+          <div class="flex-container" v-else>
+            <VuePerfectScrollbar ref='ps' :settings="settings">
+              <collapse-group class="collapse-group" :entry="this.entry"/>
+            </VuePerfectScrollbar>
+          </div>
       </section>
     </div>
   </div>
@@ -187,10 +189,14 @@ export default {
     opacity: 0.10;
     min-height: 100vh;
   }
+  .flex-container {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    height: 80vh;
+  }
   .collapse-group {
-    position: relative;
-    width: 100%;
-    max-height: 80vh;
+    position:relative;
   }
   .pagination-content{
     margin-right: 1%;
