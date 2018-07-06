@@ -1,14 +1,14 @@
 <template>
   <div class="search">
-    <div class="columns">
-      <facet-search class="column is-2"
+      <facet-search class="panel-wrapper"
                     :facetFilter="facetFilter"
                     :queryField="queryField"
                     :valueField="valueField"
                     :typeField="typeField"/>
-      <div class="divider is-fluid"></div>
-      <section class="column is-fluid searchbar">
-        <div class="is-fluid">
+      <div class="divider"></div>
+      <section class="content-wrapper">
+        <div class="content-header">
+          <div>
           <div class="dropdown is-active">
             <b-input icon="fa fa-search"
                      v-model="autoQuery"
@@ -33,7 +33,8 @@
                 </div>
             </b-dropdown-item>
           </b-dropdown>
-        <div class="is-pulled-right pagination-content">
+          </div>
+        <div class="content-pagination">
           <b-field grouped>
           <b-pagination
             :total=" total > 9900 ? 9900 : total"
@@ -68,14 +69,13 @@
           <div v-else-if="this.entry === '...'">
             <p class="has-text-centered is-size-4">{{ this.entry }}</p>
           </div>
-          <div class="flex-container" v-else>
-            <VuePerfectScrollbar ref='ps' :settings="settings">
-              <collapse-group class="collapse-group" :entry="this.entry"/>
-            </VuePerfectScrollbar>
-          </div>
+        <div class="content-wrapper" v-else>
+          <VuePerfectScrollbar ref='ps' :settings="settings">
+            <collapse-group class="content-data" :entry="this.entry"/>
+          </VuePerfectScrollbar>
+        </div>
       </section>
     </div>
-  </div>
 </template>
 <script>
 import _ from 'lodash';
@@ -200,5 +200,37 @@ export default {
   }
   .pagination-content{
     margin-right: 1%;
+  }
+  .panel-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 15%;
+    height: 95vh;
+    align-items: stretch;
+  }
+  .content-wrapper {
+    display: flex;
+    flex: 10 1 auto;
+    flex-direction: column;
+    position: relative;
+    margin-left: 1%;
+  }
+  .content-header {
+    display: flex;
+    margin-top: 1%;
+    justify-content: space-between ;
+  }
+  .content-pagination {
+    align-self: center;
+    margin-right: 1%;
+  }
+  .content-data {
+    flex: 1;
+    overflow-y: auto;
+  }
+  .content-wrapper {
+    height: 95vh;
+    display: flex;
+    align-items: stretch;
   }
 </style>

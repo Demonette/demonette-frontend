@@ -25,9 +25,8 @@
         </div>
       </div>
     </nav>
-    <br/>
       <transition name="fade" mode="out-in">
-        <router-view/>
+        <router-view class="main"/>
       </transition>
     </div>
 </template>
@@ -45,5 +44,10 @@ export default {
   .component-fade-enter, .component-fade-leave-to
     /* .component-fade-leave-active avant la 2.1.8 */ {
     opacity: 0;
+  }
+  .main {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
   }
 </style>

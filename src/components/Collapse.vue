@@ -58,9 +58,9 @@ export default {
   .box {
     padding-top: 1%;
     padding-bottom: 1%;
-    margin-bottom: 10px;
-    margin-left: 1px;
-    margin-top: 1px;
+    margin-bottom: 0.5%;
+    margin-left: 0.5%;
+    margin-top: 0.5%;
     width: 99%;
   }
 </style>
