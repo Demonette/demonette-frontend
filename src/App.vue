@@ -19,9 +19,6 @@
           <router-link :to="{ name: 'About'}" class="navbar-item">
             À propos
           </router-link>
-          <router-link :to="{ name: 'Contacts'}" class="navbar-item">
-            Contacts
-          </router-link>
         </div>
       </div>
     </nav>

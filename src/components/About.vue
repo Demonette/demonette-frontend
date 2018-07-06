@@ -1,15 +1,20 @@
 <template>
   <div class="about">
-    <h1>about</h1>
+    <div>
+      <br/>
+      Demonette {{ appVersion }}
+    </div>
   </div>
 </template>
 
 <script>
+import { version } from '../../config/version-config';
+
 export default {
-  name: 'About',
+  name: 'Footer-Demonette',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      appVersion: version[process.env.NODE_ENV],
     };
   },
 };
