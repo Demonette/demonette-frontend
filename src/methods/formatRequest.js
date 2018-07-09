@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-syntax,guard-for-in */
+import capitalize from './capitalize';
+
 export default function formatRequest(entryResult) {
   const res = {
     graph_1: [
@@ -23,14 +25,12 @@ export default function formatRequest(entryResult) {
   for (const entity in res) {
     for (const index in res[entity]) {
       const feature = res[entity][index].name;
-      if (entryResult[feature] !== '') {
-        const origin = `ori_${feature}`;
+      if (entryResult[feature]) {
         res[entity][index].value = entryResult[feature];
+        const origin = `origine${capitalize(feature)}`;
         if (entryResult[origin]) {
           res[entity][index].origin = entryResult[origin];
         }
-      } else {
-        delete res[entity].splice(index, index);
       }
     }
   }

@@ -5,12 +5,12 @@
         <aside class="menu" v-if="empty()">
           <div v-for="(v, k) in dropDownField" v-bind:key="k" v-if="v.length > 0">
             <p class="menu-label">
-              {{ k }} ({{ v.length }})
+              {{ nF[k] }} ({{ v.length }})
             </p>
-            <ul class="menu-list" >
+            <ul class="menu-list">
               <li v-for="el in v" v-bind:key="el">
                 <a v-on:click="onClick(el,k)">
-                      <b>{{ el.slice(0, autoQuery.length) }}</b>{{ el.slice(autoQuery.length)}}
+                  <b>{{ el.slice(0, autoQuery.length) }}</b>{{ el.slice(autoQuery.length)}}
                 </a>
               </li>
             </ul>
@@ -23,9 +23,16 @@
 </template>
 
 <script>
+import normalizedFields from '../methods/normalizedFields';
+
 export default {
   name: 'auto-complete-drop-down',
   props: ['showMenu', 'dropDownField', 'autoQuery'],
+  data() {
+    return {
+      nF: normalizedFields,
+    };
+  },
   methods: {
     empty() {
       let cpt = 0;

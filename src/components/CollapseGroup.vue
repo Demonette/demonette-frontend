@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <collapse v-for="el in entry" :el="el" v-bind:key="el._id"/>
-  </div>
+  <transition name="fade" mode="out-in">
+    <div :key="entry[0]._id">
+        <collapse v-for="el in entry" :el="el" v-bind:key="el._id"/>
+    </div>
+  </transition>
 </template>
 
 <script>
