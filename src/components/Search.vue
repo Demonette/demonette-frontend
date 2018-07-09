@@ -187,25 +187,13 @@ export default {
     width: 1px;
     background: black;
     opacity: 0.10;
-    min-height: 100vh;
-  }
-  .flex-container {
-    display: flex;
-    align-items: stretch;
-    flex-direction: column;
-    height: 80vh;
-  }
-  .collapse-group {
-    position:relative;
-  }
-  .pagination-content{
-    margin-right: 1%;
+    min-height: 90vh;
   }
   .panel-wrapper {
     display: flex;
     flex-direction: column;
     flex: 0 0 15%;
-    height: 95vh;
+    height: 90vh;
     align-items: stretch;
   }
   .content-wrapper {
@@ -229,7 +217,7 @@ export default {
     overflow-y: auto;
   }
   .content-wrapper {
-    height: 95vh;
+    height: 90vh;
     display: flex;
     align-items: stretch;
   }

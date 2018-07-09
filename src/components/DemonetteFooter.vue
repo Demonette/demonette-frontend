@@ -1,13 +1,17 @@
 <template>
-  <div class="about">
-  </div>
+    <div class="demonette-footer">
+      <div>
+        <br/>
+        Demonette {{ appVersion }}
+      </div>
+    </div>
 </template>
 
 <script>
 import { version } from '../../config/version-config';
 
 export default {
-  name: 'Footer-Demonette',
+  name: 'demonette-footer',
   data() {
     return {
       appVersion: version[process.env.NODE_ENV],
@@ -15,3 +19,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+</style>

@@ -25,11 +25,15 @@
       <transition name="fade" mode="out-in">
         <router-view class="main"/>
       </transition>
+    <demonette-footer/>
     </div>
 </template>
 
 <script>
+import DemonetteFooter from './components/DemonetteFooter';
+
 export default {
+  components: { DemonetteFooter },
   name: 'App',
 };
 </script>
