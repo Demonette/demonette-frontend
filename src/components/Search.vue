@@ -218,6 +218,7 @@ export default {
   }
   .content-wrapper {
     height: 90vh;
+    min-height: 0px;
     display: flex;
     align-items: stretch;
   }
