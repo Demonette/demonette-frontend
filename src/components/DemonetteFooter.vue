@@ -22,6 +22,6 @@ export default {
 <style scoped>
   .demonette-footer {
     margin-right: 0.5%;
-    margin-top: 1%;
+    margin-bottom: 1%;
   }
 </style>
