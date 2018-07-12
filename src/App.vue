@@ -52,8 +52,8 @@ export default {
     flex: 1;
   }
   #app {
-    min-height:100vh; /* 1 */
-    display:flex; /* 2 */
-    flex-direction:column; /* 3 */
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
   }
 </style>
