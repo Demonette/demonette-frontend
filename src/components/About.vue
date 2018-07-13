@@ -1,15 +1,20 @@
 <template>
   <div class="about">
     <div class="institution-wrapper">
-    <img src="../assets/cnrs.png"/>
+      <img class="img-d" src="../assets/demonette.svg"/>
+      <institution name="Démonette"
+                   :content="demonette"/>
+    </div>
+    <div class="institution-wrapper">
+      <img class="img" src="../assets/atilf.gif"/>
+      <institution class="institution" name="ATILF" :content="atilf"/>
+    </div>
+    <div class="institution-wrapper">
+    <img class="img" src="../assets/cnrs.png"/>
     <institution class="institution" name="CNRS" :content="cnrs"/>
     </div>
     <div class="institution-wrapper">
-    <img src="../assets/atilf.gif"/>
-    <institution class="institution" name="ATILF" :content="atilf"/>
-    </div>
-    <div class="institution-wrapper">
-    <img src="../assets/ul.jpg"/>
+    <img class="img" src="../assets/ul.jpg"/>
     <institution name="Université de Lorraine"
                 :content="udl"/>
     </div>
@@ -38,6 +43,11 @@ export default {
       udl: `Université de tous les savoirs, l’Université de Lorraine promeut la mutualisation des savoirs.
       Des sciences fondamentales aux sciences humaines, elle crée des éco-systèmes trans-disciplinaires au service de l’innovation,
       qui accélèrent le passage de la connaissance aux applications.`,
+      demonette: ` Démonette est une base lexicale morphologique du français organisée en réseau dérivationnel,
+      dont chaque entrée est un couple (Mot1, Mot2) appartenant à la même famille morphologique.
+      Chaque entrée est décrite par 31 champs (dont la catégorie morphosyntaxique et le type sémantique de chaque mot,
+      ainsi que la définition de Mot1 par rapport à Mot2).
+      La version distribuée Démonette-1.2 comporte 96027 entrées, dont les données initiales ont pour origine le TLFnome et Verbaction.`,
     };
   },
 };
@@ -56,10 +66,14 @@ export default {
   .institution {
     flex-basis: 50%;
   }
-  img {
+  .img {
     width: 10%;
     height: 10%;
     flex-basis: 1%;
+    margin-right: 2%;
+  }
+  .img-d {
+    flex-basis: 10%;
     margin-right: 2%;
   }
 </style>
