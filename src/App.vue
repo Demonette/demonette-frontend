@@ -2,9 +2,9 @@
   <div id="app">
     <nav class="navbar is-primary">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://www.ortolang.fr/market/lexicons/demonette" target="_blank">
+        <p class="navbar-item">
           Démonette
-        </a>
+        </p>
         <div class="navbar-burger">
           <span></span>
           <span></span>
@@ -50,5 +50,10 @@ export default {
     display: flex;
     flex-direction: row;
     flex: 1;
+  }
+  #app {
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
   }
 </style>

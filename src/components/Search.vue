@@ -198,10 +198,13 @@ export default {
   }
   .content-wrapper {
     display: flex;
-    flex: 10 1 auto;
+    height: 90vh;
+    flex: 1 1 auto;
+    min-height: 0px;
     flex-direction: column;
     position: relative;
     margin-left: 1%;
+    align-items: stretch;
   }
   .content-header {
     display: flex;
@@ -215,11 +218,5 @@ export default {
   .content-data {
     flex: 1;
     overflow-y: auto;
-  }
-  .content-wrapper {
-    height: 90vh;
-    min-height: 0px;
-    display: flex;
-    align-items: stretch;
   }
 </style>
