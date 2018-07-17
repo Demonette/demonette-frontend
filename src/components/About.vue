@@ -1,23 +1,37 @@
 <template>
   <div class="about">
     <div class="institution-wrapper">
-      <img class="img-d" src="../assets/demonette.svg"/>
+      <a class="img" href="https://www.ortolang.fr/market/lexicons/demonette">
+        <img class="img-d" src="../assets/demonette.svg"/>
+      </a>
       <institution name="Démonette"
                    :content="demonette"/>
     </div>
     <div class="institution-wrapper">
-      <img class="img" src="../assets/atilf.gif"/>
+      <a class="img" href="http://www.atilf.fr/"><img src="../assets/atilf.gif"/></a>
       <institution class="institution" name="ATILF" :content="atilf"/>
     </div>
     <div class="institution-wrapper">
-    <img class="img" src="../assets/cnrs.png"/>
+      <a class="img" href="http://www.cnrs.fr/"><img src="../assets/cnrs.png"/></a>
     <institution class="institution" name="CNRS" :content="cnrs"/>
     </div>
     <div class="institution-wrapper">
-    <img class="img" src="../assets/ul.jpg"/>
+      <a class="img" href="http://www.univ-lorraine.fr/"><img src="../assets/ul.jpg"/></a>
     <institution name="Université de Lorraine"
                 :content="udl"/>
     </div>
+    <div class="has-text-centered">
+    <hr/>
+    <br/>
+    <p class="title is-4">
+    Crédits :
+    </p>
+      <ul>
+        <li>Fiametta Namer - Responsable Scientifique</li>
+        <li>Simon Meoni - Conception et Réalisation</li>
+        <li>Cyril Pestel - Conception et Réalisation</li>
+      </ul>
+  </div>
   </div>
 </template>
 
@@ -53,10 +67,14 @@ export default {
 };
 </script>
 <style scoped>
+  hr {
+    width: 25%;
+    margin: auto;
+  }
   .about {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
   }
   .institution-wrapper {
     display: flex;
@@ -64,16 +82,16 @@ export default {
     margin-left: 10%;
   }
   .institution {
-    flex-basis: 50%;
+    flex-basis: 80%;
   }
   .img {
-    width: 10%;
-    height: 10%;
-    flex-basis: 1%;
+    flex-basis: 7%;
     margin-right: 2%;
+    align-self: center;
   }
   .img-d {
-    flex-basis: 10%;
-    margin-right: 2%;
+    width: 100%;
+    height: 100%;
+    margin-top: 5%;
   }
 </style>
