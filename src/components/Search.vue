@@ -53,8 +53,7 @@
           </b-field>
         </div>
         </div>
-        <br/>
-        <b-field grouped label="Filtre(s):" :v-show="queryField.length !== 0"> &nbsp;
+        <b-field class="filter" grouped label="Filtre(s):" :v-show="queryField.length !== 0"> &nbsp;
             <div class="control" v-for="(t,idx) in valueField" :key="t">
               <b-taglist attached>
                 <b-tag type="is-primary">{{ typeField[idx] }}</b-tag>
@@ -205,6 +204,9 @@ export default {
     position: relative;
     margin-left: 1%;
     align-items: stretch;
+  }
+  .filter {
+    margin-top: 1%;
   }
   .content-header {
     display: flex;
