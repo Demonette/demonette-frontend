@@ -51,4 +51,9 @@ export default {
     flex-direction: row;
     flex: 1;
   }
+  #app {
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
 </style>
