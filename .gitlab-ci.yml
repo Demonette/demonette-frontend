@@ -27,7 +27,7 @@ deploy_int:
   image: ubuntu
   stage: deploy
   only: 
-    - develop
+    - 55-deploys-continous-integration-by-triggering-demonette-compose
   environment:
     name: int
     url: http://demonette-int.atilf.fr
