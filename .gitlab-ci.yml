@@ -24,7 +24,7 @@ docker_build:
     - tags
 
 deploy_int:
-  image: ubuntu
+  image: appropriate/curl:latest
   stage: deploy
   only: 
     - develop
@@ -33,19 +33,5 @@ deploy_int:
     url: http://demonette-int.atilf.fr
   tags:
     - atilf-docker
-  before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan $DEV_HOST >> ~/.ssh/known_hosts
-    - scp docker-stack.int.yml $SSH_USERNAME@$DEV_HOST:/tmp/docker-stack-$STACK_NAME.yml
   script:
-    - >
-      ssh $SSH_USERNAME@$DEV_HOST "
-      docker logout $CI_REGISTRY ;
-      docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $CI_REGISTRY;
-      docker stack deploy --with-registry-auth --resolve-image always -c /tmp/docker-stack-$STACK_NAME.yml $STACK_NAME ;
-      docker logout $CI_REGISTRY ;
-      rm -f /tmp/docker-stack-$STACK_NAME.yml"
+    - "curl -X POST -F token=$DEMONETTE_PIPELINE_TOKEN -F ref=master https://git.atilf.fr/api/v4/projects/64/trigger/pipeline"
