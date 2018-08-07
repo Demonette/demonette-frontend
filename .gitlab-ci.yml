@@ -24,7 +24,7 @@ docker_build:
     - tags
 
 deploy_int:
-  image: ubuntu
+  image: appropriate/curl:latest
   stage: deploy
   only: 
     - 55-deploys-continous-integration-by-triggering-demonette-compose
