@@ -27,7 +27,7 @@ deploy_int:
   image: appropriate/curl:latest
   stage: deploy
   only: 
-    - 55-deploys-continous-integration-by-triggering-demonette-compose
+    - develop
   environment:
     name: int
     url: http://demonette-int.atilf.fr
