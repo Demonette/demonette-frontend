@@ -1,36 +1,34 @@
 <template>
-  <div class="about">
-    <div class="institution-wrapper">
-      <a class="img" href="https://www.ortolang.fr/market/lexicons/demonette">
-        <img class="img-d" src="../assets/demonette.svg"/>
+  <div class="about hero-body">
+    <div class="columns is-fluid is-multiline">
+      <div class="columns">
+      <a class="is-1 column" href="https://www.ortolang.fr/market/lexicons/demonette">
+        <figure class="image"><img src="../assets/demonette.jpg"/></figure>
       </a>
-      <institution name="Démonette"
-                   :content="demonette"/>
+      <institution class="is-5 column" name="Démonette" :content="demonette"/>
+      </div>
+    <div class="columns ">
+      <a class="is-1 column" href="http://www.atilf.fr/"><figure class="image"><img src="../assets/atilf.jpg"/></figure></a>
+      <institution class="is-6 column" name="ATILF" :content="atilf"/>
     </div>
-    <div class="institution-wrapper">
-      <a class="img" href="http://www.atilf.fr/"><img src="../assets/atilf.gif"/></a>
-      <institution class="institution" name="ATILF" :content="atilf"/>
+    <div class="columns">
+      <a class="is-1 column" href="http://www.cnrs.fr/"><figure class="image"><img src="../assets/cnrs.png"/></figure></a>
+    <institution class="is-6 column" name="CNRS" :content="cnrs"/>
     </div>
-    <div class="institution-wrapper">
-      <a class="img" href="http://www.cnrs.fr/"><img src="../assets/cnrs.png"/></a>
-    <institution class="institution" name="CNRS" :content="cnrs"/>
+    <div class="columns">
+      <a class="is-1 column" href="http://www.univ-lorraine.fr/"><figure class="image"><img src="../assets/ul.jpg"/></figure></a>
+      <institution class="is-6 column" name="Université de Lorraine" :content="udl"/>
     </div>
-    <div class="institution-wrapper">
-      <a class="img" href="http://www.univ-lorraine.fr/"><img src="../assets/ul.jpg"/></a>
-    <institution name="Université de Lorraine"
-                :content="udl"/>
-    </div>
-    <div class="has-text-centered">
-    <hr/>
-    <br/>
+    <div class="container has-text-centered">
     <p class="title is-4">
     Crédits :
     </p>
       <ul>
-        <li>Fiametta Namer - Responsable Scientifique</li>
+        <li>Fiammetta Namer - Responsable Scientifique</li>
         <li>Simon Meoni - Conception et Réalisation</li>
         <li>Cyril Pestel - Conception et Réalisation</li>
       </ul>
+  </div>
   </div>
   </div>
 </template>
@@ -67,15 +65,6 @@ export default {
 };
 </script>
 <style scoped>
-  hr {
-    width: 25%;
-    margin: auto;
-  }
-  .about {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
   .institution-wrapper {
     display: flex;
     flex-direction: row;
@@ -93,5 +82,13 @@ export default {
     width: 100%;
     height: 100%;
     margin-top: 5%;
+  }
+  .is-vertical-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .about {
+    overflow: auto;
   }
 </style>

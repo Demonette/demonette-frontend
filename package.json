@@ -1,6 +1,6 @@
 {
   "name": "demonette-frontend",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "a visualization interface for demonette website",
   "author": "Simon Meoni <simonmeoni@aol.com>",
   "private": true,
