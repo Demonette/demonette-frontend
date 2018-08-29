@@ -2,7 +2,7 @@ FROM node:9.7.0 as build
 COPY / /demonette-frontend
 RUN cd demonette-frontend && npm install && npm run build
 
-FROM nginx:latest
+FROM nginx:stable
 MAINTAINER Simon Meoni
 ENV PRODUCTION_URL=http://localhost:3000
 COPY nginx.conf /etc/nginx/nginx.conf
