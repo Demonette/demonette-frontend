@@ -1,6 +1,6 @@
 <template>
   <div class="institution">
-    <h1 class="is-size-3">{{ name }}</h1>
+    <h1 class="is-size-5">{{ name }}</h1>
     <p class="has-text-justified">{{ content }}</p>
   </div>
 </template>
