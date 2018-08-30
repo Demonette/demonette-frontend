@@ -19,7 +19,7 @@
       <a class="is-1 column" href="http://www.univ-lorraine.fr/"><figure class="image"><img src="../assets/ul.jpg"/></figure></a>
       <institution class="is-6 column" name="Université de Lorraine" :content="udl"/>
     </div>
-    <div class="has-text-centered">
+    <div class="has-text-centered container">
     <p class="title is-5">
     Crédits :
     </p>
