@@ -1,6 +1,6 @@
 <template>
-  <div class="about hero-body">
-    <div class="columns is-fluid is-multiline">
+  <div class="hero-body">
+    <div class="about columns is-fluid is-multiline">
       <div class="columns">
       <a class="is-1 column" href="https://www.ortolang.fr/market/lexicons/demonette">
         <figure class="image"><img src="../assets/demonette.jpg"/></figure>
@@ -19,26 +19,28 @@
       <a class="is-1 column" href="http://www.univ-lorraine.fr/"><figure class="image"><img src="../assets/ul.jpg"/></figure></a>
       <institution class="is-6 column" name="Université de Lorraine" :content="udl"/>
     </div>
-    <div class="container has-text-centered">
-    <p class="title is-4">
+    <div class="has-text-centered">
+    <p class="title is-5">
     Crédits :
     </p>
-      <ul>
-        <li>Fiammetta Namer - Responsable Scientifique</li>
-        <li>Simon Meoni - Conception et Réalisation</li>
-        <li>Cyril Pestel - Conception et Réalisation</li>
-      </ul>
+    <p>Fiammetta Namer - Responsable Scientifique</p>
+    <p>Simon Meoni - Conception et Réalisation</p>
+    <p>Cyril Pestel - Conception et Réalisation</p>
   </div>
   </div>
   </div>
 </template>
-
 <script>
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+
 import { version } from '../../config/version-config';
 import Institution from './Institution';
 
 export default {
-  components: { Institution },
+  components: {
+    Institution,
+    VuePerfectScrollbar,
+  },
   name: 'About',
   data() {
     return {
@@ -60,10 +62,14 @@ export default {
       Chaque entrée est décrite par 31 champs (dont la catégorie morphosyntaxique et le type sémantique de chaque mot,
       ainsi que la définition de Mot1 par rapport à Mot2).
       La version distribuée Démonette-1.2 comporte 96027 entrées, dont les données initiales ont pour origine le TLFnome et Verbaction.`,
+      settings: {
+        maxScrollbarLength: 60,
+      },
     };
   },
 };
 </script>
+
 <style scoped>
   .institution-wrapper {
     display: flex;
@@ -87,8 +93,8 @@ export default {
     display: flex;
     align-items: center;
   }
-
-  .about {
-    overflow: auto;
+  .hero-body {
+    max-height:90vh;
+    overflow-y: auto;
   }
 </style>
